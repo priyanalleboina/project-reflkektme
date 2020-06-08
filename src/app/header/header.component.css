@@ -1,0 +1,111 @@
+.bg-color {
+  background-color: #2e4052;
+}
+
+.side-bar-circular {
+  width: 48px;
+  float: right;
+  margin-right: 1%;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.circle {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding: 100% 0 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.img-responsive {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.navbar {
+  height: 60px;
+  position: fixed;
+  background-color: #2e4052;
+}
+
+.header-in {
+  background-color: #f2efee;
+  width: 100%;
+  top: 0;
+  height: 75px;
+  z-index: 2;
+}
+
+.influencer-dashboard .sidenav {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 10rem;
+  background-color: #2e3f52;
+  overflow: auto;
+  transition: all .3s linear 0;
+}
+
+.white {
+  color: white;
+}
+.circle span{
+
+  color: grey;
+}
+.circle .fa{
+  color:grey;
+
+}
+.dropdown-menu.profile-circle{
+  top: 65px;
+  text-align: center;
+  cursor: pointer;
+  min-width: 6rem;
+}
+.search_box_profiles{
+  margin-left: -19rem;
+  margin-top: 0.8rem;
+  margin-right: 1rem;
+}
+.inputsearch_profiles::placeholder{
+  color:#fff;
+  font-size:13px;
+}
+.inputsearch_profiles{
+  height: 35px;
+  border-radius: 25px;
+  outline: none;
+  background: #F5C255;
+  border: none;
+  color: #fff;
+  padding-left: 12px;
+  padding-right: 61px;
+  width: 100%;
+}
+.icon_search{
+  display: inline;
+}
+.icon_search:before {
+  content: "\f002";
+  position: absolute;
+  top: 2rem;
+  right: 126px;
+  color: #fff;
+}
+/*
+.round-img2 {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 0.6rem;
+} */

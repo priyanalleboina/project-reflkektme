@@ -1,0 +1,10 @@
+  <app-header *ngIf="isLoggedIn"></app-header>
+  <router-outlet>
+    <div class="block-loader"  *ngIf="loader">
+      <div class="d-flex justify-content-center loading-indicator">
+        <div class="spinner-border"></div>
+      </div>
+    </div>
+
+  </router-outlet>
+  <app-footer *ngIf="isLoggedIn"></app-footer>

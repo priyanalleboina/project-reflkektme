@@ -1,0 +1,301 @@
+<div class="view-details-container">
+  <p-dialog [(visible)]="display" [showHeader]="false" closeIcon="pi pi-times" [modal]="true" [responsive]="true"
+    [style]="{width: '40rem'}" [maximizable]="true" [baseZIndex]="10000">
+    <div id="replaceImg">
+      <button *ngIf="doAction === mediaActionEnum.View" type="button" class="btn table-btn"
+        (click)="closePopup();">Cancel</button>
+      <input type="file" title="Upload Files" style="display:none" onclick="this.value=null;" id="fileSelecter" name="filesToUpload"
+        [(ngModel)]="file_Uploade" (change)="uploadFile($event)">
+      <label *ngIf="doAction === mediaActionEnum.Edit" (click)="openFile()">
+        <button type="button" class="btn table-btn">Replace File</button></label>
+    </div>
+    <div class="card">
+      <img class="card-img-top" *ngIf="media.media_type === mediaTypeEnum.Image" src="{{media.media_url}}"
+        alt="Card image">
+      <video class="card-img-top" [src]="media.media_url" *ngIf="media.media_type === mediaTypeEnum.Video" controls>
+        <!-- <source src="{{media.media_url}}" type="video/mp4"> -->
+      </video>
+    </div>
+    <div class="row" id="short_title">
+      <div class="col-4">Product Details</div>
+      <div class="col-4">Model Measurement</div>
+      <div class="col-4" *ngIf="doAction === mediaActionEnum.View">
+        <button type="button" class="btn edit-btn list-group ml-auto"
+          (click)="doAction = mediaActionEnum.Edit;onclickOfEdit()">Edit</button></div>
+    </div>
+    <form #f="ngForm" (ngSubmit)="f.valid && saveProduct();">
+      <div *ngIf="doAction === mediaActionEnum.Edit" class="row">
+        <div class="col-4">
+          <div class="form-group">
+            <label>Product Name<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="productName" #productName="ngModel" name="productName"
+              [(ngModel)]="modelDetails.product_name" [ngClass]="{'require': f.submitted && !productName.valid}"
+              pattern="^[a-zA-Z]+.*?[^\s]{1,100}$" required maxlength="100">
+            <!-- <div *ngIf="productName.invalid && (productName.dirty || productName.touched)"  class="text-danger">
+                    <div *ngIf="productName.errors.required">
+                      ProductName  is required.
+                    </div>
+                    <div *ngIf="productName.errors.pattern"  class="text-danger">
+                      Please Enter Characters
+                    </div>
+                  </div> -->
+          </div>
+          <div class="form-group">
+            <label>Product price<span class="text-danger">*</span></label>
+            <input class="form-control" name="productPrice" [(ngModel)]="modelDetails.product_price"
+              #prodPrice="ngModel"
+              [options]="{ prefix: '$', thousands: ',', hundred: ',', align: 'left', precision: 2, allowNegative: false }"
+              [ngClass]="{'require': (f.submitted && !prodPrice.valid) || (f.submitted && modelDetails.product_price < 1) }"
+              currencyMask required maxlength="8">
+          </div>
+
+          <div class="form-group">
+            <label>Product Category<span class="text-danger">*</span></label>
+            <select class="form-control" name="productCategory" [(ngModel)]="modelDetails.category_name"
+              (change)="findCategoryId(modelDetails.category_name)" #prodCategory="ngModel"
+              [ngClass]="{'require': f.submitted && !prodCategory.valid}" required>
+              <option *ngFor="let category of allcategoryArr" [value]="category.category_name">
+                {{category.category_name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Product URL<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="productUrl" [(ngModel)]="modelDetails.product_url"
+              #productUrl="ngModel" id="productUrl" [ngClass]="{'require': f.submitted && !productUrl.valid}" required>
+            <!--
+                pattern="(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"
+               -->
+            <div *ngIf="f.submitted" class="text-danger">
+              <!-- <div *ngIf="productUrl.errors.required">
+                    First Name is required.
+                  </div> -->
+              <div *ngIf="productUrl?.errors?.pattern" class="text-danger">
+                Please enter proper URL.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label>Wearing Size <span class="text-danger">*</span></label>
+            <select class="form-control" name="wearingSize" #wearing_Size="ngModel" [(ngModel)]="modelDetails.size"
+              [ngClass]="{'require': f.submitted && !wearing_Size.valid}" required>
+              <option *ngFor="let sizes of wearingSize" [value]="sizes.size">{{sizes.size}}</option>
+            </select>
+          </div>
+          <div class="form-group width7">
+            <label>Height<span class="text-danger">*</span></label>
+            <div class="switch6" style="border:1px solid #999999;">
+              <label class="switch6-light">
+                <input type="checkbox" name="isHeightInCm"
+                  (click)="isHeightInFeet?(modelDetails.heightMeasurement='FEET'):(modelDetails.heightMeasurement='CM')"
+                  [(ngModel)]="isHeightInCm">
+                <span class="pointer">
+                  <span>FEET</span>
+                  <span>CM</span>
+                </span>
+                <a class="btn switch-colr"></a>
+              </label>
+            </div>
+            <input *ngIf="isHeightInCm" type="number" placeholder="cm" class="form-control no-spin" #hight="ngModel"
+              name="height" [(ngModel)]="modelDetails.heightCentemeter"
+              [ngClass]="{'require': f.submitted && !hight.valid }" required pattern="(?<!-)\b([1-3]?\d{1,2}|400)\b"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              type="number" maxlength="3">
+            <div *ngIf="!isHeightInCm" class="d-flex">
+              <input type="number" placeholder="feet" class="form-control no-spin" #hight="ngModel" name="height"
+                [(ngModel)]="modelDetails.heightFeet" pattern="([1-9]|1[0-2])"
+                [ngClass]="{'require': f.submitted && !hight.valid }" required>
+              <input type="number" placeholder="inch" class="form-control no-spin ml-1" name="inchForHt"
+                #inchForHt="ngModel" [(ngModel)]="modelDetails.heightInch" pattern="([1-9]|1[0-2])"
+                [ngClass]="{'require': f.submitted && !inchForHt.valid }"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                type="number" maxlength="2">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Body Type <span class="text-danger">*</span></label>
+            <select class="form-control" name="bodyType" placeholder="Select Body type" #body_type="ngModel"
+              [(ngModel)]="modelDetails.bodyType" [ngClass]="{'require': f.submitted && !body_type.valid}" required>
+              <option [value]="bt" *ngFor="let bt of bodyTypes">{{bt}}</option>
+            </select>
+          </div>
+          <!-- <div class="form-group">
+            <label>Product price<span class="text-danger">*</span></label>
+            <input class="form-control" name="productPrice" [(ngModel)]="modelDetails.product_price"
+              #prodPrice="ngModel"
+              [options]="{ prefix: '$', thousands: ',', hundred: ',', align: 'left', precision: 2, allowNegative: false }"
+              [ngClass]="{'require': (f.submitted && !prodPrice.valid) || (f.submitted && productDetails.product_price < 1) }"
+              currencyMask required maxlength="8">
+          </div> -->
+          <div class="form-group chipwidth">
+            <label>Assign Tag</label>
+            <!-- <p-chips name="assign_tag" placeholder="Assign Tag" [(ngModel)]="modelDetails.assign_tag" >
+            </p-chips> -->
+            <p-chips name="assignTag" id="assignTag" [ngClass]="{
+              'required_assign_tag .ui-chips>ul.ui-inputtext' :(!(modelDetails?.assign_tag?.length) && f.submitted)
+             }" [(ngModel)]="modelDetails.assign_tag" #assignTag="ngModel"
+              [styleClass]="(f.submitted && assignTag?.errors?.pattern )?'redborder':''"
+              pattern="^[a-zA-Z]+.*?[^\s]{1,100}$" max="5" required>
+            </p-chips>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label>Weight<span class="text-danger">*</span></label>
+            <div class="switch6 " style="border:1px solid #999999;">
+              <label class="switch6-light" onclick="">
+                <input type="checkbox" name="isweightInLbs"
+                  (click)="isHeightInFeet?(modelDetails.weightMeasurement='KG'):(modelDetails.weightMeasurement='LBS')"
+                  [(ngModel)]="isweightInLbs">
+                <span class="pointer">
+                  <span>KG</span>
+                  <span>LBS</span>
+                </span>
+                <a class="btn switch-colr"></a>
+              </label>
+            </div>
+            <input *ngIf="isweightInLbs" type="number" placeholder="lbs" class="form-control no-spin" name="weight"
+              [(ngModel)]="modelDetails.weightLbs" #Weight="ngModel"
+              [ngClass]="{'require': f.submitted && !Weight.valid}" required pattern="(?<!-)\b([1-3]?\d{1,2}|400)\b"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              type="number" maxlength="3">
+            <input *ngIf="!isweightInLbs" type="number" placeholder="kg" class="form-control no-spin" name="weight"
+              [(ngModel)]="modelDetails.weightKiloGram" #Weight="ngModel" pattern="(?<!-)\b([1-3]?\d{1,2}|400)\b"
+              [ngClass]="{'require': f.submitted && !Weight.valid}" required
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              type="number" maxlength="3">
+          </div>
+          <div class="form-group">
+            <div><label>Hips/Bust/Waist<span class="text-danger">*</span></label></div>
+            <div class="switch6 margin-left-9" style="border:1px solid #999999;margin-left:6rem !important">
+              <label class="switch6-light">
+                <input type="checkbox" name="ismeasurementInCm"
+                  (click)="isHeightInFeet?(modelDetails.hipsBustWaistMeasurement='INCH'):(modelDetails.hipsBustWaistMeasurement='CM')"
+                  [(ngModel)]="ismeasurementInCm">
+                <span class="pointer">
+                  <span>IN</span>
+                  <span>CM</span>
+                </span>
+                <a class="btn switch-colr"></a>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="!ismeasurementInCm" class="d-flex">
+            <input type="number" class="form-control no-spin p-0 width4 width_hips" name="hips" placeholder="inch"
+              [(ngModel)]="modelDetails.hips" #hips="ngModel" [ngClass]="{'require': f.submitted && !hips.valid}"
+              required pattern="^[1-9][0-9]?$|^100$"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              type="number" maxlength="3">
+            <input type="number" class="form-control no-spin p-0 width4 width_hips" name="bust" placeholder="inch"
+              [(ngModel)]="modelDetails.bust" #bust="ngModel" pattern="^[1-9][0-9]?$|^100$"
+              [ngClass]="{'require': f.submitted && !bust.valid}" required
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              type="number" maxlength="3">
+            <input type="number" class="form-control no-spin p-0 width4 width_hips" name="waist" placeholder="inch"
+              [(ngModel)]="modelDetails.waist" #waist="ngModel" pattern="^[1-9][0-9]?$|^100$"
+              [ngClass]="{'require': f.submitted && !waist.valid}" required
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              type="number" maxlength="3">
+          </div>
+          <div *ngIf="ismeasurementInCm" class="d-flex">
+            <input type="number" class="form-control no-spin p-0 width4 width_hips" name="hips" placeholder="cm"
+              [(ngModel)]="modelDetails.hips" #hips="ngModel" pattern="^(0?[1-9]|[1-9][0-9]|[1][0-9][0-9]|200)$"
+              [ngClass]="{'require': f.submitted && !hips.valid}" required
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              type="number" maxlength="3">
+            <input type="number" class="form-control no-spin p-0 width4 width_hips" name="bust" placeholder="cm"
+              [(ngModel)]="modelDetails.bust" #bust="ngModel" pattern="^(0?[1-9]|[1-9][0-9]|[1][0-9][0-9]|200)$"
+              [ngClass]="{'require': f.submitted && !bust.valid}" required
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              type="number" maxlength="3">
+
+            <input type="number" class="form-control no-spin p-0 width4 width_hips" name="waist" placeholder="cm"
+              [(ngModel)]="modelDetails.waist" #waist="ngModel" pattern="^(0?[1-9]|[1-9][0-9]|[1][0-9][0-9]|200)$"
+              [ngClass]="{'require': f.submitted && !waist.valid}" required
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              type="number" maxlength="3">
+          </div>
+          <div class="form-group mt-2">
+            <label>Reflektme Tips<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" #tips="ngModel" name="tips"
+              [(ngModel)]="modelDetails.reflektmeOnTips" pattern="^[a-zA-Z]+.*?[^\s]{1,200}$"
+              [ngClass]="{'require': f.submitted && !tips.valid}" required maxlength="200">
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="doAction === mediaActionEnum.View">
+        <div class="col-4">
+          <div class="form-group chipwidth mb-2">
+            <label>Product Name</label>
+            <div class="view-text">{{modelDetails?.product_name}}</div>
+          </div>
+          <div class="form-group chipwidth mb-2">
+            <label>Assign Tag</label>
+            <div class="view-text">{{modelDetails?.assign_tag}}</div>
+          </div>
+          <div class="form-group mb-2">
+            <label>Product Category</label>
+            <div class="view-text">{{modelDetails?.category_name}}</div>
+          </div>
+          <div class="form-group mb-2">
+            <label>Product URL</label>
+            <div class="view-text">{{modelDetails?.product_url}}</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group mb-2">
+            <label>Size</label>
+            <div class="view-text">{{modelDetails.size}}</div>
+          </div>
+          <div class="form-group mb-2" *ngIf="modelDetails.heightMeasurement !=='CM'">
+            <label>Height</label>
+            <div class="view-text">{{modelDetails.heightFeet}}.{{modelDetails.heightInch}}
+              {{modelDetails.heightMeasurement}}</div>
+          </div>
+          <div class="form-group mb-2" *ngIf="modelDetails.heightMeasurement=='CM'">
+            <label>Height</label>
+            <div class="view-text">{{modelDetails.heightCentemeter}} {{modelDetails.heightMeasurement}}</div>
+          </div>
+          <div class="form-group mb-2">
+            <label>Body Type</label>
+            <div class="view-text">{{modelDetails.bodyType}}</div>
+          </div>
+          <div class="form-group mb-2">
+            <label>Product Price</label>
+            <div class="view-text">${{modelDetails.product_price}}</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group mb-2" *ngIf="modelDetails?.weightMeasurement=='KG'">
+            <label>Weight</label>
+            <div class="view-text">{{modelDetails?.weightKiloGram}} {{modelDetails?.weightMeasurement}}</div>
+          </div>
+          <div class="form-group mb-2" *ngIf="modelDetails?.weightMeasurement=='LBS'">
+            <label>Weight</label>
+            <div class="view-text">{{modelDetails?.weightLbs}} {{modelDetails?.weightMeasurement}}</div>
+          </div>
+          <div class="form-group mb-2">
+            <label>Hips & Bust</label>
+            <div class="view-text">{{modelDetails?.hips}} {{modelDetails?.hipsBustWaistMeasurement}} ,
+              {{modelDetails?.bust}} {{modelDetails?.hipsBustWaistMeasurement}}</div>
+          </div>
+          <div class="form-group mb-2">
+            <label>Waist</label>
+            <div class="view-text">{{modelDetails?.waist}} {{modelDetails?.hipsBustWaistMeasurement}} </div>
+          </div>
+          <div class="form-group mb-2">
+            <label>Reflektme Tips</label>
+            <div class="view-text">{{modelDetails?.reflektmeOnTips}} </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="doAction === mediaActionEnum.Edit" class="card-body p-1 float-right">
+        <!-- <button type="button" class="btn solid-btn gray-bckgnd ml-auto" (click)="modelDetails={}">Reset</button> -->
+        <button type="submit" class="btn solid-btn yello-bckgnd ml-auto" (click)="isSaveEdit=true">Save</button>
+        <button type="button" class="btn holloBtn ml-auto"
+          (click)="closePopup();display = false;isSaveEdit==true?sendMessage():''">Cancel</button>
+      </div>
+    </form>
+  </p-dialog>
+</div>

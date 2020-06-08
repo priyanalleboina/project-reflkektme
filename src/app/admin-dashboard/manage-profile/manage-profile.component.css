@@ -1,0 +1,160 @@
+.manage-table-box {
+  width: 95%;
+}
+
+.manage-table-box .card {
+  border-radius: 0.5rem;
+}
+
+.green-dot{
+color: #65cd25;
+}
+.orange-dot{
+color: #f5c254;
+}
+.badge {
+  background-color: #76c1fb;
+  vertical-align: middle;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  line-height: 1rem;
+  font-size: 0.7rem;
+  margin-left: 0.2rem;
+}
+.line-height_badge{
+  line-height:normal;
+}
+.border-right {
+  border-right: 1px solid red;
+  padding-right: 0.2rem;
+  margin-right: 0.3rem;
+}
+
+.table-btn {
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+}
+
+
+
+
+.table-checkbox {
+  position: relative;
+  margin-right: 1.9rem;
+  margin-left: 0.8rem;
+  margin-bottom: 0.5rem !important;
+}
+
+.table-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: -0.125rem;
+  left: 0;
+  height: 0.8rem;
+  width: 0.8rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.table-checkbox input:checked~.checkmark:after {
+  display: block;
+}
+
+.table-checkbox .checkmark:after {
+  left: 0.1875rem;
+  top: 0.0625rem;
+  width: 0.3125rem;
+  height: 0.5rem;
+  border: solid #f5c254;
+  border-width: 0 0.1875rem 0.1875rem 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.table-head td {
+  border-top: none !important;
+  font-family: Open sans;
+  font-size: 0.75rem;
+  color: #989898;
+  padding: 1.4rem 0 0.5rem 0.7rem;
+}
+
+.manage-table-box .card {
+  border: none;
+}
+.manage-table-box .table {
+overflow-y: auto;
+height: 26rem;
+display: inline-block;
+}
+/* .manage-table-box .table td{
+vertical-align: middle;
+  } */
+.mange-box-min-height {
+  min-height: 31.9rem;
+}
+
+.td-content {
+  font-size: 0.625rem;
+  color: 000000;
+}
+
+.edit-input {
+  font-size: 0.625rem !important;
+  color: #000000 !important;
+  padding: 0.2rem !important;
+}
+
+.overme {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.nameWidth{
+    width: 6.1rem;
+}
+.emailWidth{
+    width: 8rem;
+}
+.yesbutton{
+  border: 0.1rem solid #F5C255 !important;
+  border-radius: 3rem !important;
+  color: #fff !important;
+  padding: 0.13rem 1.2rem 0.13rem 1.2rem !important
+}
+.nobtn{
+  border: 0.1rem solid #808184 !important;
+  border-radius: 3rem !important;
+  background-color:#808184;
+  color: #fff !important;
+  padding: 0.13rem 1.2rem 0.13rem 1.2rem !important
+}
+@media only screen and (max-width: 1366px) {
+.nameWidth {
+    width: 4rem;
+}
+.status_width {
+  width:7% !important;
+}
+.sub_margin {
+  margin-left:13rem;
+  margin-top:1rem;
+}
+}

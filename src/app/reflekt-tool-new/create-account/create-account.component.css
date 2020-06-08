@@ -1,0 +1,225 @@
+.ActiveTab{
+    background-color: red;
+    color:#fff;
+}
+
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey
+}
+
+#progressbar .active {
+    color: #000000
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 25%;
+    float: left;
+    position: relative
+}
+
+#progressbar .step0enter:before {
+    font-family: FontAwesome;
+    content: "Step 1"
+}
+#progressbar .step0Success:before {
+    font-family: FontAwesome;
+    content: "Succ"
+}
+
+#progressbar .step1enter:before {
+    font-family: FontAwesome;
+    content: "Step 2"
+}
+
+#progressbar .step1Success:before {
+    font-family: FontAwesome;
+    content: "Scucc"
+}
+
+
+#progressbar .step2enter:before {
+    font-family: FontAwesome;
+    content: "Step 3"
+}
+#progressbar .step2Success:before {
+    font-family: FontAwesome;
+    content: "Succ"
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "4"
+}
+
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #f5c255
+}
+
+.hrline{
+    position:relative;
+    top: 46px;
+    border-top: 2px solid #f5c255;
+    width: 198px;
+    /* left: -23px; */
+}
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey
+}
+
+#progressbar .active {
+    color: #000000
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 25%;
+    float: left;
+    position: relative
+}
+
+#progressbar .step0enter:before {
+    font-family: FontAwesome;
+    content: "Baisc Info";
+    width: 89px;
+    height: 35px;
+    line-height: 30px;
+    border-radius: 47px;
+    /* padding: 0px 6px 41px 6px; */
+    left: 62px;
+    /* margin-top: 5px; */
+    background: #f5c255;
+    margin-left: -17px;
+    margin-right: 38px;
+    font-size: 15px;
+}
+#progressbar .step0Success:before {
+     font-family: FontAwesome;
+    content: "✔";
+    width: 35px;
+    height: 35px;
+    line-height: 25px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: rgb(189,217,191);
+    border-radius: 50%;
+    padding: 4px;
+    margin: 0em;
+    font-size: 20px;
+    border: 2px solid #f5c255;
+}
+
+#progressbar .step1enter:before {
+    font-family: FontAwesome;
+    content: "2";
+    padding: 4px 5px;
+    font-size: 16px;
+    border: 2px solid #f5c255;
+
+
+}
+
+
+#progressbar .step2enter:before {
+    font-family: FontAwesome;
+    content: "3";
+    padding: 4px 5px;
+    font-size: 16px;
+    border: 2px solid #f5c255;
+}
+#progressbar .step1:before {
+    font-family: FontAwesome;
+    content: "Age & BMI";
+    width: 89px;
+    height: 35px;
+    line-height: 21px;
+    border-radius: 47px;
+    /* padding: 0px 2px 13px 2px; */
+    left: 62px;
+    margin-left: -19px;
+    margin-top: 5px;
+    background: #f5c255;
+    margin-left: -17px;
+    margin-right: 38px;
+    font-size: 15px;
+}
+#progressbar .step2:before {
+    font-family: FontAwesome;
+    content: "Preferences";
+    width: 89px;
+    height: 38px;
+    border-radius: 47px;
+    padding: 0px 6px 41px 6px;
+    left: 62px;
+    margin-left: 9px;
+    margin-top: 5px;
+    background: #f5c255;
+    font-size: 15px;
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "4"
+}
+
+#progressbar li:before {
+  width: 35px;
+  height: 35px;
+  line-height: 25px;
+  display: block;
+  font-size: 18px;
+  color: #ffffff;
+  background: lightgray;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  padding: 2px;
+  text-align: center;
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #f5c255
+}

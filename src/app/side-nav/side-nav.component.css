@@ -1,0 +1,74 @@
+.copy-right-text {
+  font-size: 0.75rem;
+  padding: 0.8rem 0;
+  display: block;
+  padding-left: 25rem;
+}
+
+.copy-right-box {
+  background-color: #2e4052;
+  margin-top: 1.375rem;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.influencer-dashboard .sidenav {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 11rem;
+  background-color: #2e3f52;
+  overflow: auto;
+  transition: all 0.3s linear 0;
+}
+
+.wrapper {
+  background-color: #f2efee;
+  position: relative;
+}
+
+.border-b {
+  border-bottom: 1px solid #c4c2c2;
+}
+
+.navbar-nav {
+  padding-top: 10px;
+}
+.navbar-nav li a label {
+  margin-bottom: 0;
+  cursor: pointer;
+  font-size: 11px;
+  margin-right: 8px;
+}
+.navbar-nav li a .nav-link {
+  padding: 5px;
+}
+.navbar-nav li a .badge {
+  background-color: #f5c255;
+  border-radius: 50%;
+}
+.badge.line-height_badge{
+  width: 1rem;
+  height: 1rem;
+  line-height: normal;
+  margin-left: 0;
+  font-size: 10px;
+  padding: 0.1rem 0.1rem;
+}
+@media screen and (min-width: 320px) and (max-width: 479px) {
+  .influencer-dashboard .sidenav {
+    width: 3rem;
+  }
+  .side-nav ul li a {
+    display: none;
+  }
+}
+.purpleBg {
+  background-color: #2e3f52;
+}
+@media screen and (max-width:768px){
+  .influencer-dashboard .sidenav {
+    width:auto !important;
+  }
+}

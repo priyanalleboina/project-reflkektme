@@ -1,0 +1,116 @@
+/* .chart-sheet ul{
+    list-style-type: none;
+}
+.chart-sheet ul li {
+    padding:0.3rem 0;
+}
+.chart-sheet ul li+li {
+    margin-top: 0.5rem;
+}
+
+
+.chart-sheet ul li a{
+    padding:0.3rem 2rem;
+    width: 100%;
+    font-size: 1rem;
+}
+.chart-sheet ul li.active {
+    background-color: #f5c254;
+}
+
+.small-size{
+    font-size: 0.65rem;
+    margin-left: 0.5rem;
+}
+
+
+.chart-sheet-table{
+ width: 97%;
+ padding: 0.5rem 0rem 0.5rem 1rem;
+ border-radius: 0.5rem;
+}
+
+.value-form-control{
+    padding: 0 0.5rem;
+}
+.value-form-control::placeholder{
+    font-size: 0.7rem;
+}
+.td-spacing{
+    padding-left: 0.7rem;
+}
+.table-btn{
+    padding:0.5rem 1.5rem;
+}
+.text-right{
+    text-align: left;
+} */
+.size-chart-table {
+    background-color: #808184;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+.size-chart-table h5{
+    font-size: 1rem;
+    color: #ffffff;
+    padding: 1rem 1.2rem;
+    border-bottom: 0.0625rem solid #ffffff;
+    margin-bottom: 0;
+}
+.size-chart-table .table-wrapper{
+    background-color: #808184;
+    padding: 0.5rem  0.8rem  0.8rem  0.8rem;
+}
+.size-chart-table .table{
+    width: 100%;
+    margin-bottom: 0;    
+}
+.size-chart-table .table thead tr th{
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 400;
+    border: 0.0625rem solid #ffffff;
+    border-top: 0;
+    text-align: center;
+    padding: 0 0.75rem 0.3rem 0.75rem;
+}
+.size-chart-table .table thead tr th:last-child{
+    border-right: 0;
+}
+.size-chart-table .table thead tr th:first-child{
+    border-left: 0;
+}
+.size-chart-table .table tbody tr td{
+    color: #ffffff;
+    font-size: 0.7rem;
+    vertical-align: middle;
+    border: 0.0625rem solid #ffffff;
+    text-align: center;
+    padding: 0.4rem;
+}
+.size-chart-table .table tbody tr td.large-font{
+    color: #F5C255;
+    font-size: 1.4rem;
+}
+
+.size-chart-table .table tbody tr td span{
+    display: block;
+
+}
+.size-chart-table .table tbody tr td .td-padding{
+    padding-bottom: 0.2rem
+
+}
+.size-chart-table .table tbody tr td:last-child{
+    border-right: 0;
+}
+.size-chart-table .table tbody tr td:first-child{
+    border-left: 0;
+}
+.td-border-bottom{
+    border-bottom: transparent !important;
+}
+
+.chart-box-min-height{
+    min-height: 31.9rem;
+  }

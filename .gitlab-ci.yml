@@ -1,0 +1,18 @@
+deploy_staging:
+  stage: deploy
+  image: node:13.6.0
+  environment: prod
+#  when: manual
+  only:
+    - staging
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan 104.211.177.152 >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - npm install
+    - ./node_modules/@angular/cli/bin/ng build --prod
+    - scp -r dist/reflektme/ root@104.211.177.152:/var/www/html/reflektme_frontend/dist/

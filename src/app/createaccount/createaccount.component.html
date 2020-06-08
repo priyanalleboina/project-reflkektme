@@ -1,0 +1,285 @@
+ <div class="model-popover-box-wrapper">
+    <div class="modal fade" id="createAccStepper" data-backdrop="static">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="header">
+            <button type="button" class="close mr-2 mt-2" data-dismiss="modal"
+              (click)="basicInfoForm?.resetForm();resetCustomerForm()">&times;</button>
+            <img class="image" src="../../assets/Guest-final-step–5/White Banner Logo.png">
+          </div>
+          <div class="row pl-pr-2">
+            <div class="col-md-10 m-auto content">
+              <p-steps [model]="items" [readonly]="false"></p-steps>
+              <hr class="hrline">
+              <ul id="progressbar" style="width: 100%;padding: 3px 10px 0px;margin:0 13%;">
+                <li class="step0enter" (click)="switchTabs('0')" style="float: left;padding: 5px 10px;"
+                  [ngClass]="isSuccesTab0?'step0Success':''"></li>
+                <li (click)="step1tab ? switchTabs('1'):''" style="float: left;padding: 5px 10px; "
+                  [ngClass]="{'step0Success' : isSuccesTab1, 'step1' : step1tabactive,  'step1enter' : ageInfo}">
+                </li>
+                <li (click)="step2tab ? switchTabs('2'):''" style="float: left;padding: 5px 10px;"
+                  [ngClass]="{'step0Success':isSuccesTab2 , 'step2':step2tabactive,'step2enter':prefernces}">
+                </li>
+              </ul>
+              <form #basicInfoForm="ngForm" (ngSubmit)="basicInfoForm.valid && gotoNext(basicInfoForm,1)">
+                <div class="col-md-11 pr-0 pl-0 m-auto label-text-11" *ngIf="activeIndex == 0">
+                  <div class="form-group mb-3">
+                    <label class="control-label star-required">Name</label>
+                    <input type="text" class="form-control" name="name" #name="ngModel" minlength="2"
+                      [(ngModel)]="customerData.firstName" pattern="^[a-zA-z]+([\s][a-zA-Z]+)*$" maxlength="50" required
+                      [ngClass]="{'require':!name.valid && basicInfoForm.submitted}" />
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+                      <div *ngIf="name.errors.required">
+                        Name is required.
+                      </div>
+                      <div *ngIf="name.errors.pattern">
+                        Please enter only characters & max 50
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label class="control-label star-required">User Name</label>
+                    <input type="text" class="form-control" pattern="^[a-zA-z]+([\s][a-zA-Z]+)*$" maxlength="50"
+                      name="userName" #userName="ngModel" [(ngModel)]="customerData.username" required
+                      [ngClass]="{'require':!userName.valid && basicInfoForm.submitted}" />
+                    <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="text-danger">
+                      <div *ngIf="userName.errors.required">
+                        UserName is required.
+                      </div>
+                      <div *ngIf="userName.errors.pattern">
+                        Please enter only characters & max 50
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label class="control-label star-required">Email address</label>
+                    <input [disabled]="customerCreated" type="text" class="form-control" name="email" #email="ngModel"
+                      [(ngModel)]="customerData.email" pattern="[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+)+((\.)[a-z]{2,4})"
+                      required [ngClass]="{'require':!email.valid && basicInfoForm.submitted && !customerCreated}" />
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                      <div *ngIf="email.errors.required">
+                        Email is required.
+                      </div>
+                      <div *ngIf="email.errors.pattern">
+                        Please enter valid email
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label class="control-label star-required">Password</label>
+                    <input [disabled]="customerCreated" type="password"
+                      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,20}$" max-length="20"
+                      class="form-control" name="passw" #password="ngModel" [(ngModel)]="customerData.password" required
+                      [ngClass]="{'require':!password.valid && basicInfoForm.submitted && !customerCreated}" />
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                      <div *ngIf="password.errors.required" class="text-danger">
+                        Password is required.
+                      </div>
+                      <div *ngIf="password.errors.pattern" class="text-danger">
+                        Min8,Max20,1Special,1Upper,1Num
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn arrow-btn" type="submit">
+                    <i class="fa fa-arrow-circle-right " aria-hidden="true"></i>
+                  </button>
+                </div>
+              </form>
+              <form #ageBMIForm="ngForm" (ngSubmit)="ageBMIForm.valid && gotoNext(ageBMIForm,2)">
+                <div class="col-md-11 pr-0 pl-0 m-auto" *ngIf="activeIndex == 1">
+                  <div class="row mt-2">
+                    <div class="col-12 text-center preference-tag  mb-2 star-required">How Old are you ?</div>
+                    <ul class="old-list pl-0">
+                      <li class="radio-border"><label><input type="radio" name="optradio" value="18-24"
+                            [(ngModel)]="customerMeasurements.age" #ageControl="ngModel" required>
+                          18-24
+                        </label></li>
+                      <li class="radio-border"><label><input type="radio" name="optradio" value="25-34"
+                            [(ngModel)]="customerMeasurements.age" required>
+                          25-34</label></li>
+                      <li class="radio-border"><label><input type="radio" name="optradio" value="35-44"
+                            [(ngModel)]="customerMeasurements.age" required>
+                          35-44</label></li>
+                      <li class="radio-border"><label><input type="radio" name="optradio" value="45+"
+                            [(ngModel)]="customerMeasurements.age" required>
+                          45+</label></li>
+                    </ul>
+                  </div>
+                  <div class="col-12 text-danger mt-1 text-center" *ngIf="ageBMIForm?.submitted && ageControl?.invalid">
+                    Age is
+                    required.</div>
+                  <div class="col-12 text-center tborder mt-3 preference-tag mb-2 pt-3 star-required">What is your Height
+                    &
+                    Weight</div>
+                  <div class="col-12 p-0 d-flex">
+                    <div class="col-6 pl-0">
+                      <div class="row mt-2">
+                        <div class="col-3 label-text-12">Height</div>
+                        <div class="col-8">
+                          <div class="switch6">
+                            <label class="switch6-light">
+                              <input type="checkbox" name="isHeightInFeet"
+                                (click)="isHeightInFeet?(customerMeasurements.heightMeasurement='FEET'):(customerMeasurements.heightMeasurement='CM')"
+                                [(ngModel)]="isHeightInFeet">
+                              <span>
+                                <span>FEET</span>
+                                <span>CM</span>
+                              </span>
+                              <a class="btn switch-colr"></a>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="!isHeightInFeet" class="d-flex mt-2">
+                        <input class="form-control width-3 p-1" type="number" #height_feet="ngModel" placeholder="feet"
+                          oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                          name="height_feet" [(ngModel)]="customerMeasurements.feet" maxlength="2"
+                          pattern="([1-9]|1[0-2])" required
+                          [ngClass]="{'require':!height_feet.valid && ageBMIForm.submitted}">
+                        <input class="form-control width-3 p-1 ml-2" type="number" placeholder="inch" maxlength="2"
+                          oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                          [ngClass]="{'require':!height_inch.valid && ageBMIForm.submitted}" #height_inch="ngModel"
+                          pattern="([1-9]|1[0-2])" name="height_inch" [(ngModel)]="customerMeasurements.inch">
+                      </div>
+                      <div *ngIf="isHeightInFeet" class=" mt-2">
+                        <input class="form-control width-3 p-1" type="number" placeholder="cm" #height_cm="ngModel" name="height_cm"
+                          [(ngModel)]="customerMeasurements.centemeter" required pattern="^((?<!-)\b([1-3]?\d{1,2}|400)\b|\d)(\.\d{1,2})?$"
+                          [ngClass]="{'require':!height_cm.valid && ageBMIForm.submitted}">
+                      </div>
+                    </div>
+                    <div class="col-6 pr-0">
+                      <div class="row mt-2">
+                        <div class="col-3 label-text-12">Weight</div>
+                        <div class="col-8">
+                          <div class="switch6" style="border:1px solid #999999;">
+                            <label class="switch6-light">
+                              <input type="checkbox" name="isWeightInKG"
+                                (click)="isWeightInKG?(customerMeasurements.weightMeasurement='KG'):(customerMeasurements.weightMeasurement='LBS')"
+                                [(ngModel)]="isWeightInKG">
+                              <span>
+                                <span>KG</span>
+                                <span>LBS</span>
+                              </span>
+                              <a class="btn switch-colr"></a>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="!isWeightInKG" class="mt-2">
+                        <input class="form-control width-3 p-1" type="number" placeholder="kg" #weight_kg="ngModel"
+                          pattern="^((?<!-)\b([1-3]?\d{1,2}|400)\b|\d)(\.\d{1,2})?$" name="weight_kg"
+                          [(ngModel)]="customerMeasurements.kiloGram" required
+                          [ngClass]="{'require':!weight_kg.valid && ageBMIForm.submitted}">
+                      </div>
+                      <div *ngIf="isWeightInKG" class="mt-2">
+                        <input class="form-control width-3 p-1" type="number" placeholder="lbs" #weight_lbs="ngModel"
+                          name="weight_lbs" [(ngModel)]="customerMeasurements.lbs" required
+                          pattern="^((?<!-)\b([1-3]?\d{1,2}|400)\b|\d)(\.\d{1,2})?$"
+                          [ngClass]="{'require':!weight_lbs.valid && ageBMIForm.submitted}">
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn arrow-btn" type="submit">
+                    <i class="fa fa-arrow-circle-right " aria-hidden="true"></i>
+                  </button>
+                </div>
+              </form>
+              <form #PreferencesForm="ngForm"
+                (ngSubmit)="PreferencesForm.valid && customerMeasurements.size && goToFourthStepOfstepper()">
+                <div class="col-md-11 pr-0 pl-0 m-auto" *ngIf="activeIndex == 2">
+                  <div class="row">
+                    <div class="col-12 text-center star-required preference-tag"><b>Size Info</b></div>
+                    <div class="col-12 text-center mb-4 gray">Please select the size you wear often</div>
+                    <div class="col-12 text-center mb-2 gray">Size Metrics <span style="color:#2DCDFF">US
+                        <img class="pencile" src="../../assets/Guest-final-step–5/pencil.svg"></span></div>
+                    <div class="col-12 w-100">
+                      <!-- <ul class="box pl-0 text-center mb-2">
+                        <li class="pointer" *ngFor="let sizes of measurements.slice(0,4)"
+                          (click)="customerMeasurements.size = sizes"
+                          [ngClass]="{'yello-bckgnd white':customerMeasurements.size===sizes}">
+                          {{sizes}}</li>
+                      </ul> -->
+                      <!-- <ul class="box pl-0 text-center">
+                        <li class="pointer" *ngFor="let sizes of measurements.slice(4,measurements.length)"
+                          (click)="customerMeasurements.size = sizes"
+                          [ngClass]="{'yello-bckgnd white':customerMeasurements.size===sizes}">
+                          {{sizes}}</li>
+                      </ul> -->
+                      <div *ngIf="PreferencesForm.submitted && !customerMeasurements.size"
+                        class="text-center text-danger">
+                        Please select size
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div>
+                    <div class="col-12 text-center tborder preference-tag mt-2 pt-4 star-required"><b>Select your
+                        Brand</b></div>
+                    <div class="col-12 text-center gray">A brand you already own and like the wayit fits</div>
+                    <div class="col-12 mt-2 mb-3">
+                      <select class="form-control" #brand="ngModel" name="brand" [(ngModel)]="brandName"
+                        required [ngClass]="{'require':!brand.valid && PreferencesForm.submitted}">
+                        <option value="brand.brandName" *ngFor="let brand of brandsArr">{{brand.brandName}}</option>
+                      </select>
+                    </div>
+                  </div> -->
+                  <button class="btn arrow-btn" type="submit">
+                    <i class="fa fa-arrow-circle-right " aria-hidden="true"></i>
+                  </button>
+                  <!-- <button style="visibility: hidden" #refleckSizebtn data-toggle="modal" data-dismiss="modal"
+                    data-target="#reflektSize">open
+                    refleckSize</button> -->
+                  <button style="visibility: hidden" #closebutton data-dismiss="modal" type="button"></button>
+                </div>
+              </form>
+              <!-- <div *ngIf="activeIndex === 3">
+                <div class="m-auto content darkgray">
+                  <div class="col-12 mt-4 pl-0 pr-0">
+                    <div class="col-12 mt-2 preference-tag"><b>Submit a Product Review</b>(optional)</div>
+                    <div class="col-12 mt-1 font-s11">OLD NAVY Fitted Crew-Neck Tee Dress - Black XXL</div>
+                  </div>
+                  <div class="grayline mt-1 mb-1"></div>
+                  <div class="d-flex label-text-11">
+                    <label>
+                      Overall Rating:
+                    </label>
+                    <div class="rating">
+                      <star-rating value="5" checkedcolor="#f4c257" uncheckedcolor="#6a6c75" size="16px" readonly="false"
+                        (rate)="onRate($event)"></star-rating>
+                    </div>
+                  </div>
+                  <div class="label-text-11">
+                    <label> Add a Headline</label>
+                    <input class="col-12 form-control" type="text" placeholder="What is most important to know?"
+                      name="reviewTitle" [(ngModel)]="reviewData.reviewTitle">
+                  </div>
+                  <div class="mt-2 label-text-11">
+                    <label>Write your Review</label>
+                    <textarea class="col-12 form-control" rows="3" placeholder="What did you like or dislike?"
+                      name="reviewDesc" [(ngModel)]="reviewData.reviewDesc"></textarea>
+                  </div>
+                  <div class="mt-2 label-text-11">
+                    <label>Add your Own Photos and Videos for Use In This Tool</label>
+                  </div>
+                  <div class="text-center darkgray UploadFile">
+                    <p>Drag & Drop Files Here or</p>
+                    <input type="file" title="Upload Files" style="display:none;" id="fileSelecter" name="filesToUpload"
+                      [(ngModel)]="filesToUpload" (change)="uploadFile($event)" multiple>
+                    <button class="btn Uploadbutton" (click)="openFile()">Upload Files</button>
+                    <p class="lightgray" style="font-size: 10px">only jpeg, png, git and mp4 files with max size of 15 MB
+                    </p>
+                  </div>
+                  <label class="mb-0 label-text-11">Uploading <span class="yello">{{reviewImage.length}}</span> photos
+                    <span class="yello">{{reviewVideo.length}}</span> video</label>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <!-- <button *ngIf="activeIndex === 3" type="button" style="margin-top:-31px" class="btn yello-bckgnd btn-block"
+            data-toggle="modal" data-target="#thanksModel" data-dismiss="modal" aria-hidden="true" data-keyboard="false"
+            (click)="saveReview()">SAVE</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <button style="visibility: hidden" #closebutton data-dismiss="modal" type="button"></button> -->
+  

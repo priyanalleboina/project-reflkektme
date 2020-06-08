@@ -1,0 +1,103 @@
+<div class="influencer-dashboard mange-box-min-height">
+  <div class="wrapper">
+    <div class="sidenav">
+      <div class="sidenave-clr">
+        <div class="side-nav">
+          <div class="navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav white" *ngIf="(role === 'ROLE_INFLUENCER')">
+              <li class="nav-item text-center">
+                <img class="h3" src="assets/AdminDashboard/WhiteRLogo.png">
+              </li>
+              <li [ngClass]="{'gray-bckgnd' : currentPage === ''}" class="nav-item d-flex mt-3 pointer"
+                (click)="gotoPage('')">
+                <img class="leftIcons" src="assets/AdminDashboard/library 2x.png">
+                <a class="nav-link">Dashboard</a>
+              </li>
+              <li class="nav-item d-flex pointer" [ngClass]="{'gray-bckgnd' : currentPage === 'profile'}"
+                (click)="currentPage = 'profile';gotoPage('profile')">
+                <img class="leftIcons" src="assets/InfluencerDashboard/settings-1.svg">
+                <a class="nav-link">Profile
+                  Setting</a>
+              </li>
+              <li class="nav-item d-flex pointer" (click)="logout()">
+                <img class="leftIcons" src="assets/InfluencerDashboard/logout-32.png">
+                <a class="nav-link">Log Out</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav white" *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_SUPER_ADMIN'">
+              <li class="nav-item text-center pointer">
+                <img class="h3" src="assets/AdminDashboard/WhiteRLogo.png">
+              </li>
+              <li [ngClass]="{'gray-bckgnd' : currentPage === ''}" class="nav-item d-flex pointer"
+                (click)="gotoPage('','Admin')">
+                <img class="leftIcons " src="assets/AdminDashboard/library.png">
+                <a class="nav-link">
+                  <label>Dashboard</label>
+                </a>
+              </li>
+              <li [ngClass]="{'gray-bckgnd' : currentPage === 'influencer-photos'}" class="nav-item d-flex pointer"
+                (click)="gotoPage('influencer-photos','Admin')">
+                <img class="leftIcons" src="assets/AdminDashboard/1.png">
+                <a class="nav-link">
+                  <label>Influencer Photos</label>
+                  <span class="badge b-warning line-height_badge" *ngIf="photoCount > 0">{{photoCount}}</span>
+                </a>
+              </li>
+              <li [ngClass]="{'gray-bckgnd' : currentPage === 'influencer-videos'}" class="nav-item d-flex pointer"
+                (click)="gotoPage('influencer-videos','Admin')">
+                <img class="leftIcons" src="assets/AdminDashboard/2.png">
+                <a class="nav-link">
+                  <label>Influencer Videos</label>
+                  <span class="badge b-warning line-height_badge" *ngIf="videoCount > 0">{{videoCount}}</span>
+                </a>
+              </li>
+              <li [ngClass]="{'gray-bckgnd' : currentPage === 'upload-media'}" class="nav-item d-flex pointer"
+                (click)="gotoPage('upload-media','Admin')">
+                <img class="leftIcons" src="assets/AdminDashboard/3.png">
+                <a class="nav-link">
+                  <label>Upload media</label></a>
+              </li>
+              <li [ngClass]="{'gray-bckgnd' : currentPage === 'library'}" class="nav-item d-flex pointer"
+                (click)="gotoPage('library','Admin')">
+                <img class="leftIcons" src="assets/AdminDashboard/library-04.png">
+                <a class="nav-link">
+                  <label>Library</label></a>
+              </li>
+              <li [ngClass]="{'gray-bckgnd' : currentPage === 'add-influencer'}" class="nav-item d-flex pointer"
+                (click)="gotoPage('add-influencer','Admin')">
+                <img class="leftIcons" src="assets/AdminDashboard/5.png">
+                <a class="nav-link">
+                  <label>Add Influencer</label></a>
+              </li>
+              <li [ngClass]="{'gray-bckgnd' : currentPage === 'add-admin'}" class="nav-item d-flex pointer"
+                (click)="gotoPage('add-admin','Admin')" *ngIf="role === 'ROLE_SUPER_ADMIN'">
+                <img class="leftIcons" src="assets/AdminDashboard/5.png">
+                <a class="nav-link">
+                  <label>Add Admin</label></a>
+              </li>
+              <li [ngClass]="{'gray-bckgnd' : currentPage === 'profile'}" class="nav-item d-flex pointer"
+                (click)="gotoPage('profile','Admin')">
+                <img class="leftIcons" src="assets/AdminDashboard/6.png">
+                <a class="nav-link">
+                  <label>Manage Profiles</label></a>
+              </li>
+              <li [ngClass]="{'gray-bckgnd' : currentPage === 'size-charts'}" class="nav-item d-flex pointer"
+                (click)="gotoPage('size-charts','Admin')">
+                <img class="leftIcons" src="assets/AdminDashboard/dash-nav-icon-07.png">
+                <a class="nav-link">
+                  <label>Size Chart</label>
+                </a>
+              </li>
+              <li class="nav-item d-flex pointer" (click)="logout()">
+                <img class="leftIcons" src="assets/AdminDashboard/logout-32.png">
+                <a class="nav-link">
+                  <label>Log Out</label>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

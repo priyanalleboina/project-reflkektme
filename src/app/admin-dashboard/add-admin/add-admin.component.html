@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-12 d-flex">
+      <div class="col-2">
+        <app-side-nav></app-side-nav>
+      </div>
+      <div class="col-10 mt-70 align-width-screen">
+        <div class="mt-3 font17 ml-2 heading-color">Add Admin</div>
+        <div class="container-fluid ml-2">
+          <div class="add-influencer-container add-min-height">
+            <form #f="ngForm" (ngSubmit)="f.valid && saveAddAdminDetails();f.resetForm();">
+              <div class="row mt-2">
+                <div class="col-5 card card-border">
+                  <div class="add-influencer-box">
+                    <div class="">
+                      <div class="influencer-profile-img">
+                        <img class="round-img2 yello-border" [src]="profileImage || 'http://placehold.it/180'">
+                      </div>
+                      <div class="influencer-profile-text">
+                        <input #imageInput type="file" title="Upload New Photo" name="file_uploade" style="display:none;"
+                          (change)="uploadFile($event)" id="selectedFile" (click)="fileUploade=null"
+                          [(ngModel)]="fileUploade">
+                        <label class="btn add-influencer-btn white yello-bckgnd mr-1" for="selectedFile">Upload
+                          New Photo</label>
+                        <button type="button" *ngIf="upload" class="btn add-influencer-btn removeButton"
+                          (click)="removeFile();">Remove</button>
+                        <p class="image-text gray">Images should be at least 400px * 600px as a png or jpeg
+                          files</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="form-group">
+                          <label class="lable-size star-required-red">First Name</label>
+                          <input type="text" class="form-control" name="firstName"
+                            [(ngModel)]="InfluencerDetails.firstName" #fname="ngModel" required
+                            pattern="^[a-zA-z]+([\s][a-zA-Z]+)*$" maxlength="15" minlength="2">
+                          <!-- [ngClass]="f.submitted && !fname.valid && isSendInvitrClick ? 'require': ''" -->
+                          <div *ngIf="fname.invalid && (fname.dirty || fname.touched)" class="text-danger">
+                            <div *ngIf="fname.errors.required">
+                              First Name is required.
+                            </div>
+                            <div *ngIf="fname.errors.pattern || fname.errors.minlength || fname.errors.maxlength" class="text-danger">
+                              Please enter only characters min 2 & max 15
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="lable-size star-required-red" for="email">Email</label>
+                          <input type="email" class="form-control" name="email" #email="ngModel" required
+                            [(ngModel)]="InfluencerDetails.email"
+                            pattern="[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+)+((\.)[a-z]{2,4})">
+                          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                            <div *ngIf="email.errors.required">
+                              Email is required.
+                            </div>
+                            <div *ngIf="email.errors.pattern" class="text-danger">
+                              Please Enter Valid Email
+                            </div>
+                          </div>
+                          <!-- [ngClass]="f.submitted && !email.valid? 'require': ''" -->
+                        </div>
+                        <div class="d-flex">
+                          <button type="button" class="btn add-influencer-hollobtn font_infulencer mr-2"
+                            (click)="InfluencerDetails={};f.resetForm();">Cancel</button>
+                          <button type="submit" class="btn add-influencer-btn white yello-bckgnd font_infulencer"
+                            [disabled]="!f.valid">Send Invite</button>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group">
+                          <label class="lable-size star-required-red">Last Name</label>
+                          <input type="text" class="form-control" name="lastName" pattern="^[a-zA-z]+([\s][a-zA-Z]+)*$"
+                            #lname="ngModel" [(ngModel)]="InfluencerDetails.lastName" maxlength="15" minlength="2" required>
+                          <div *ngIf="lname.invalid && (lname.dirty || lname.touched)" class="text-danger">
+                            <div *ngIf="lname.errors.required">
+                              Last Name is required.
+                            </div>
+                            <div *ngIf="lname.errors.pattern || lname.errors.minlength || lname.errors.maxlength" class="text-danger">
+                              Please enter only characters min 2 & max 15
+                            </div>
+                          </div>
+                          <!-- [ngClass]="f.submitted && !lname.valid && isSendInvitrClick? 'require': ''" -->
+                        </div>
+                        <div class="form-group">
+                          <label class="lable-size star-required-red">Password:</label>
+                          <input [type]="!isCPwdVisible? 'password' : 'text'" class="form-control" name="password"
+                            [(ngModel)]="InfluencerDetails.password" #password="ngModel" required
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,20}$" max-length="20">
+                          <img *ngIf="isCPwdVisible" (click)="isCPwdVisible = !isCPwdVisible"
+                            src="../../../assets/icons/icons-visible.png" class="field-icon">
+                          <img *ngIf="!isCPwdVisible" (click)="isCPwdVisible = !isCPwdVisible"
+                            src="../../../assets/icons/icons-invisible.png" class="field-icon">
+                          <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                            <div *ngIf="password.errors.required" class="text-danger">
+                              Password is required.
+                            </div>
+                            <div *ngIf="password.errors.pattern" class="text-danger">
+                              Min8,Max20,1Special,1Upper,1Num
+                            </div>
+                          </div>
+                          <!-- [ngClass]="f.submitted && !password.valid  && isSendInvitrClick ? 'require': ''" -->
+                          <p class="forgot-password font_infulencer text-right" (click)="generatePassword()"><a>Generate
+                              Password</a></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-7"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,77 @@
+<ul>
+  <li class="pointer">
+    <a (click)="tempLoginToReflektmeTool()">View reflektme-tool screen here</a>
+  </li>
+</ul>
+<div class="login-wrapper lgray-bckgnd d-flex justify-content-center align-items-center">
+  <div class="login-box d-flex justify-content-end">
+    <form #f="ngForm" (ngSubmit)="login()">
+      <a class="b-logo"><img class="" src="assets/login/Black Banner Logo.png"></a>
+      <div class="form-box shadow-sm">
+        <label id="signin" class="lable-title font-1 darkgray ml-3" for="exampleInputEmail1">Sign In</label>
+        <div class="form-group">
+          <input type="text" class="form-control border-r10" placeholder="Email" name="email"
+            [(ngModel)]="loginCredentials.email" required autocomplete="off">
+          <a class="form-control-icon"><img src="assets/login/login icons-01.png"></a>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control border-r10 mt-2" placeholder="Password" name="password"
+            [(ngModel)]="loginCredentials.password" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
+            #password="ngModel" required minlength="8" maxlength="20">
+
+          <a class="form-control-icon"><img src="assets/login/login icons-02.png"></a>
+          <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+            <div *ngIf="password.errors.minlength">Password must be at least 8-20 characters</div>
+
+          </div>
+        </div>
+        <button type="submit" class="btn btn-block login-btn" [disabled]="f.invalid">Login</button>
+      </div>
+      <div class="d-flex checkbox-box">
+        <div class=" margin-right d-flex align-items-center">
+          <input class="check" type="checkbox" [(ngModel)]="rememberMe" name="rememberMe">
+          <p>Remember me</p>
+        </div>
+        <div class="pointer">
+          <button type="button" class="btn font-size-12" data-toggle="modal" data-target="#forgotPasswordModal">
+            Forgot Password?
+          </button>
+        </div>
+      </div>
+    </form>
+    <div id="whitePatch"></div>
+  </div>
+</div>
+
+<div class="modal" id="forgotPasswordModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="p-2">
+        <button #closeBtn type="button" class="close ml-auto p-2" data-dismiss="modal"
+          (click)="forgotForm?.resetForm()">&times;</button>
+        <h4 class="text-center">Forgot Password</h4>
+      </div>
+
+      <div class="col-12">
+        <form #forgotForm="ngForm" (ngSubmit)="forgotForm.valid && forgotPassword()">
+          <label>Email:</label>
+          <input type="text" class="form-control border-r10" placeholder="Email" name="fEmail" #fEmail="ngModel"
+            [(ngModel)]="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" maxlength="50"
+            autocomplete="false" readonly onfocus="this.removeAttribute('readonly');" required>
+          <div *ngIf="forgotForm.submitted && fEmail.invalid" class="text-danger ">
+            <div *ngIf="fEmail.errors.required">Email is required</div>
+            <div *ngIf="fEmail.errors.pattern">Invalid Pattern</div>
+          </div>
+          <div class="text-right">
+            <button type="button" class="btn font-size-12" data-dismiss="modal" (click)="forgotForm?.resetForm()">
+              Cancel
+            </button>
+            <button type="submit" class="btn font-size-12">
+              Ok
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

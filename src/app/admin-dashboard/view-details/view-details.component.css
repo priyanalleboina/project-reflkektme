@@ -1,0 +1,175 @@
+.view-details-container p-dialog .card img{
+height: 18rem;
+}
+.view-details-container .row .col-4 .form-group input{
+    /* width: 39%; */
+    /* margin-top: 0.3rem; */
+}
+.view-details-container .row .col-4 .form-group{
+    margin-bottom: 0.5rem;
+}
+.view-details-container .row .col-4 .form-group label{
+    font-size: 12px;
+    color: #232221;
+    margin-bottom: 0rem;
+}
+.view-details-container .row .col-4 .form-group .view-text{
+font-size: 12px;
+color: #808184;
+}
+
+
+#short_title{
+    font-size: 16px;
+    color: #6A6968;
+    margin-top: 0.8rem; 
+    margin-bottom: 1rem;    
+}
+.chipwidth .ui-chips .ui-inputtext{
+    width: 39%;
+    margin-bottom: -0.5rem;
+}
+#replaceImg{
+    text-align: right;
+    margin-bottom: 0.8rem;
+}
+
+.edit-btn{
+    color: white !important;
+    border-radius: 3rem !important;
+    padding: 0rem 0.7rem 0rem 0.7rem !important;
+    font-size: 12px !important;
+    background-color: #F5C255;
+}
+.switch6 {
+    max-width: 5rem;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    margin: -1.4rem 0 0 2.9rem
+  }
+  
+  .switch6-light>span,
+  .switch-toggle>span {
+    color: #000000;
+  }
+  
+  .switch6-light span span,
+  .switch6-light label,
+  .switch-toggle span span,
+  .switch-toggle label {
+    color: #2b2b2b;
+  }
+  
+  .switch-toggle a,
+  .switch6-light span span {
+    display: none;
+  }
+  
+  .switch6-light {
+    display: block;
+    height: 1.25rem;
+    margin-bottom: 0;
+    position: relative;
+    overflow: visible;
+    padding: 0;
+    margin-left: -0.3125rem;
+  }
+  
+  .switch6-light * {
+    box-sizing: border-box;
+  }
+  
+  .switch6-light a {
+    display: block;
+    transition: all 0.3s ease-out 0s;
+  }
+  
+  .switch6-light label,
+  .switch6-light>span {
+    line-height: 1.875rem;
+    vertical-align: middle;
+  }
+  
+  .switch6-light label {
+    font-weight: 700;
+    margin-bottom: 0;
+    max-width: 100%;
+  }
+  
+  .switch6-light input {
+    position: absolute;
+    opacity: 0;
+    z-index: 5;
+  }
+  
+  .switch6-light input:checked~a {
+    right: 0%;
+  }
+  
+  .switch6-light>span {
+    position: absolute;
+    left: -6.25rem;
+    width: 100%;
+    margin: 0;
+    padding-right: 6.25rem;
+    text-align: left;
+  }
+  
+  .switch6-light>span span {
+    position: absolute;
+    top: -0.25rem;
+    left: 0;
+    z-index: 5;
+    display: block;
+    width: 44%;
+    margin-left: 6.25rem;
+    text-align: center;
+    font-size: 0.65rem;
+  }
+  
+  .switch6-light>span span:last-child {
+    left: 30%;
+    color: #808184;
+  }
+  
+  .switch6-light a {
+    position: absolute;
+    right: 50%;
+    border-radius: 1.25rem;
+    top: 0;
+    z-index: 4;
+    display: block;
+    width: 50%;
+    height: 100%;
+    padding: 0;
+  }
+  
+  .switch-colr {
+    color: #f4c257;
+    background-color: #f4c257;
+  }
+  .width7 {
+    width: 7rem;
+  }
+  
+  .width4 {
+    width: 4rem;
+    margin-right: 0.4rem;
+    padding: 0.5rem !important;
+  }
+  
+  .mt035 {
+    margin-top: 0.35rem;
+  }
+  
+  .margin-left-9 {
+    margin-left: 9rem !important;
+  }
+  
+  .width6 {
+    width: 6rem;
+  }
+  .form-group .form-control {
+    margin-top: 0.5rem;
+}
+  

@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-12 d-flex">
+    <div class="col-2">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div class="col-10">
+      <div class="section mt-70">
+        <form #f="ngForm" (ngSubmit)="f.valid && updateInfluencer()" class="mange-box-min-height">
+          <div class="hover-class font17 mt-3 mb-2">Profile Settings</div>
+          <div class="influencer-box">
+            <div class="card card-border">
+              <div class="p-1 pb-3 d-flex">
+                <div class="influencer-img">
+                  <img class="round-img2" style="border: none;"
+                    [src]="InfluencerData?.media?.media_url || '../../../../assets/avatar.jpg'" #uploadeImg>
+                </div>
+                <div class="influencer-text">
+                  <input type="file" title="Upload New Photo" style="display:none;" id="selectedFile" #imageInput
+                    name="imgUpload" (change)="uploadFile($event)" accept="image/*">
+                  <label class="btn yello-btn-setting pointer" for="selectedFile">Upload New Photo</label>
+                  <button *ngIf="InfluencerData?.media?.media_url" type="button" class="btn gray-btn-setting"
+                    data-toggle="modal" data-target="#exampleModal">Remove</button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Are You Sure You Want To Delete It ?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" style="font-size:0.875rem !important" class="btn yello-btn-setting"
+                            data-dismiss="modal" (click)="removeFile()">Yes</button>
+                          <button type="button" data-dismiss="modal" class="btn holloBtn yello-border">No</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="image-text gray">Images should be at least 400px *600px as a png or jpeg files</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label class="lable-size star-required-red">First Name</label>
+                    <input type="text" class="form-control" name="firstName" [(ngModel)]="InfluencerData.firstName"
+                      #fname="ngModel" required [ngClass]="f.submitted && !fname.valid ? 'require': ''"
+                      pattern="^[a-zA-Z]+.*?[^\s]{1,100}$" maxlength="15" minlength="2">
+                    <div *ngIf="f.submitted && fname.invalid && (fname.dirty || fname.touched)" class="text-danger">
+                      <div *ngIf="fname.errors.required">
+                        First Name is required.
+                      </div>
+                      <div *ngIf="fname.errors.pattern || fname.errors.minlength || fname.errors.maxlength" class="text-danger">
+                        Please enter only characters min 2 & max 15
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="lable-size star-required-red" for="email">Email</label>
+                    <input disabled type="email" class="form-control" name="email" [(ngModel)]="InfluencerData.email" maxlength="50">
+                  </div>
+                  <div class="d-flex">
+                    <button type="button" class="btn holloBtn yello-border mr-2"
+                      routerLink="/influencer-dashboard">Cancel</button>
+                    <button type="submit" class="btn yello-btn-setting">Update</button>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label class="lable-size star-required-red">Last Name</label>
+                    <input type="text" class="form-control" name="lastName" #lname="ngModel"
+                      [(ngModel)]="InfluencerData.lastName" required
+                      [ngClass]="f.submitted && !lname.valid ? 'require': ''" pattern="^[a-zA-Z]+.*?[^\s]{1,100}$" maxlength="15" minlength="2">
+                    <div *ngIf="f.submitted && lname.invalid && (lname.dirty || lname.touched)" class="text-danger">
+                      <div *ngIf="lname.errors.required">
+                        Last Name is required.
+                      </div>
+                      <div *ngIf="lname.errors.pattern || lname.errors.minlength || lname.errors.maxlength" class="text-danger">
+                        Please enter only characters min 2 & max 15
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

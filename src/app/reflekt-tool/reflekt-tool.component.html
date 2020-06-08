@@ -1,0 +1,691 @@
+<div class="container-fluid white-bckgnd pl-1 pr-1">
+  <div class="col-12">
+    <div class="row pt-3">
+      <div class="col-lg-7 pl-0" id="slider">
+        <div class="image-slider">
+          <div id="carousel" class="carousel slide">
+            <!-- main slider carousel items -->
+            <ul class="carousel-inner">
+              <li class="active item carousel-item" data-slide-number="0">
+                <img src="../../assets/RM Photoshoot Prototype/Pics /DSC_0751 copy.jpg" class="img-fluid">
+              </li>
+              <li class="item carousel-item" data-slide-number="1">
+                <img src="../../assets/RM Photoshoot Prototype/Pics /DSC_0935 copy.jpg" class="img-fluid">
+              </li>
+              <li class="item carousel-item" data-slide-number="2">
+                <img src="../../assets/RM Photoshoot Prototype/Pics /DSC_0914 copy.jpg" class="img-fluid">
+              </li>
+              <li class="item carousel-item" data-slide-number="3">
+                <img src="../../assets/RM Photoshoot Prototype/Pics /DSC_0751 copy.jpg" class="img-fluid">
+              </li>
+            </ul>
+            <!-- main slider carousel nav controls -->
+            <ul class="carousel-indicators">
+              <li class="list-inline-item active" data-slide-to="0" data-target="#carousel">
+                <a id="carousel-selector-0" class="selected">
+                  <img src="../../assets/RM Photoshoot Prototype/Pics /DSC_0751 copy.jpg" class="img-fluid">
+                </a>
+              </li>
+              <li class="list-inline-item mt-3" data-slide-to="1" data-target="#carousel">
+                <a id="carousel-selector-1">
+                  <img src="../../assets/RM Photoshoot Prototype/Pics /DSC_0935 copy.jpg" class="img-fluid">
+                </a>
+              </li>
+              <li class="list-inline-item mt-3" data-slide-to="2" data-target="#carousel">
+                <a id="carousel-selector-2">
+                  <img src="../../assets/RM Photoshoot Prototype/Pics /DSC_0914 copy.jpg" class="img-fluid">
+                </a>
+              </li>
+              <li class="list-inline-item mt-3" data-slide-to="3" data-target="#carousel">
+                <a id="carousel-selector-3">
+                  <img src="../../assets/RM Photoshoot Prototype/Pics /DSC_0751 copy.jpg" class="img-fluid">
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-1"></div>
+      <div class="col-lg-4 border">
+        <div class="d-block mr-1 text-right">
+          <img class="mr-2 wt-15 pointer" src="assets/logout.svg" (click)="removeData()">
+        </div>
+        <div class="darkgray weight-700" style="font-size: 1.2rem">Fitted Crew-Neck Tee Dress For Women</div>
+        <div class="row">
+          <div class="col-8">
+            <h4 class="weight-700 mt-1">$29.99</h4>
+          </div>
+          <div class="col-4">
+            <div class="d-flex justify-content-end mt-1">
+              <star-rating value="5" checkedcolor="#f4c257" uncheckedcolor="#black" size="18px" readonly="false"
+                (rate)="onRate($event)"></star-rating>
+            </div>
+
+          </div>
+        </div>
+        <div class="mt-2 font-size-12 darkgray weight-700">Save more with Code at Checkout</div>
+        <div class="mt-2 font-size-14 weight-500">Color: <span class="weight-700">Black</span></div>
+        <ul class="horizontal-list mt-2 mb-0 d-flex pl-0">
+          <li class="active-border active-border-show"><a class="ht-wth d-block mt-2"
+              style="background-color: black"></a></li>
+          <li class="active-border"><a class="ht-wth d-block mt-2" style="background-color: aqua"></a></li>
+          <li class="active-border"><a class="ht-wth d-block mt-2" style="background-color: orange"></a></li>
+          <li class="active-border"><a class="ht-wth d-block mt-2" style="background-color: peru"></a></li>
+          <li class="ml-auto">
+            <!-- data-target="#landingModal"  -->
+            <img class="reflektme-btn" src="../../assets/Website Logo Buton.png" data-toggle="modal"
+              (click)="showModal()" aria-hidden="true" data-keyboard="false">
+          </li>
+        </ul>
+        <div class="btn-group col-12 border-box mt-3 p-0" role="group" aria-label="Basic example">
+          <button type="button" class="btn font-color-blue font-size-12 weight-700 col-4 border-rt">REGULAR</button>
+          <button type="button" class="btn font-color-blue font-size-12 weight-700 col-4 border-rt">TALL</button>
+          <button type="button" class="btn font-color-blue font-size-12 weight-700 col-4 ">PETITE</button>
+        </div>
+        <div class="mt-3">Size:<b>{{selectedsize}}</b></div>
+        <ul class="mt-2 d-flex flex-wrap pl-0">
+          <li class="active-border" *ngFor="let sizes of measurements"
+            [ngClass]="{'active-border-show':selectedsize===sizes.size}">
+            <a class="sm-box mt-2" (click)="selectedsize=sizes.size"
+              [ngClass]="{'selected-sizebox white':selectedsize===sizes.size}">
+              {{sizes.size}}</a></li>
+        </ul>
+        <div class="col-12 mt-4 tborder pt-3">
+          <div class="row">
+            <div class="col-6 pl-0">
+              <div class="size-weight">FIT AND SIZING</div>
+            </div>
+            <div class="col-6">
+              <div class="pull-right font-dark-blue size-weight">SIZE GUIDLINE</div>
+            </div>
+          </div>
+        </div>
+        <ul class="darkgray pl-0">
+          <li class="mt-2">-Straight from top to bottom for a flattering, fitted shape.</li>
+          <li class="">-Tee dress fit above knee</li>
+          <li class="">-Model is approximately 5'9' and wears a size S(numeric size 4)</li>
+        </ul>
+        <div class="tborder font-size-14 weight-700 mt-3">Quantity:</div>
+        <div class="sm-box mt-2 mb-4">1</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grayline mb-1"></div>
+<div *ngIf="isGuestCame" id="openModalStepper1" aria-hidden="true" data-keyboard="false" data-toggle="modal"
+  data-target="#reflektSize" data-dismiss="modal"></div>
+<div *ngIf="isCreateAccountCame" id="openModalStepper2" aria-hidden="true" data-keyboard="false" data-toggle="modal"
+  data-target="#reflektSize" data-dismiss="modal"></div>
+<!-- The landingModal Modal -->
+<div class="create-account-pop-box">
+  <div class="modal fade" id="landingModal" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal body -->
+        <div class="header">
+          <button type="button" class="close mr-2 mt-2" data-dismiss="modal" (click)="removeBackDrop()">&times;</button>
+          <img class="image" src="../../assets/Guest-final-step–5/White Banner Logo.png">
+        </div>
+        <div class="row pl-pr-2">
+          <div class="col-md-11 m-auto content">
+            <div class="row ">
+              <div class="col-12 mt-2 font-size-12 weight-700 darkgray text-center pb-2 pt-2">Please Create an Account
+                or Continue as a Guest</div>
+              <div class="col-12 mt-2">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-7">
+                    <div class="col-12 p-2 create-btn orangebackgnd pointer" style="color: white; font-size: 100%"
+                      aria-hidden="true" data-keyboard="false" data-toggle="modal" data-target="#createAccStepper"
+                      data-dismiss="modal" (click)="isCustomer = true;">Create an Account</div>
+                    <div class="col-12 p-1 text-center darkgray">OR</div>
+                    <div class="col-12 p-2 create-btn bg-gray darkgray pointer" style="font-size: 100%"
+                      aria-hidden="true" data-keyboard="false" data-toggle="modal" data-target="#guestModal"
+                      data-dismiss="modal" (click)="isGuest = true;">Continue
+                      as Guest
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 "><button type="button" class="btn darkgray float-right pt-0 pb-0" data-toggle="modal"
+                  data-target="#signInModal" data-dismiss="modal" (click)="isSignIn = true; isCreateAccountCame = false"
+                  aria-hidden="true" data-keyboard="false">Sign in</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="isGuest">
+  <app-guest-model *ngIf="isGuest" (activeInd)="changeIndex($event)" aria-hidden="true" data-keyboard="false"
+    [setIndex]="activeIndex" data-toggle="modal" data-backdrop="static">
+  </app-guest-model>
+</div>
+<div>
+  <app-create-account *ngIf="isCustomer" (activeInd)="changeIndOfCreateAccStepper($event)" aria-hidden="true"
+    data-keyboard="false" [setIndex]="activeIndex" data-toggle="modal" data-backdrop="static" [prodcutId]="prodcutId">
+  </app-create-account>
+</div>
+
+<!-- reflekt Size Product Details modal -->
+<div class="model-popover-box-wrapper">
+  <div class="modal fade" id="reflektSize">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content reflSize">
+        <!-- <div class="d-block mr-1 text-right">
+        <button type="button" class="close  pointer" data-dismiss="modal">&times;</button>
+          <img class="mr-2 wt-15 pointer" src="assets/logout.svg" (click)="removeData()">
+        </div> -->
+
+        <!-- *ngIf="medias.length && product" -->
+        <div class="row no-gutters" style="height: 35rem">
+          <div class="col-md-6 pr-2" id="modelslider">
+            <div class="model-popover-box">
+              <!-- main slider carousel nav controls -->
+              <ul class="carousel-indicators leftImagesHt">
+                <li *ngFor="let inf of influencerList; let index = index" class="list-inline-item"
+                  [ngClass]="{'mt-3':index===0,'active':inf.isActive}" attr.data-slide-to="{{index}}"
+                  data-target="#modelCarousel">
+                  <!-- attr.data-slide-to="{{index}}" data-target="#modelCarousel" -->
+                  <!-- [ngClass]="{'active':inf.isActive == true}" -->
+                  <a id="carousel-selector" (click)="selectNavMedia(index);findProductByMediaId(inf.medias[0].media_id)"
+                    href="#modelCarousel">
+
+                    <img [src]="inf.medias[0].media_url" *ngIf="inf.medias[0].media_type == mediaTypeEnum.Image"
+                      class="img-fluid">
+                    <button class="play-button" *ngIf="inf.medias[0].media_type === mediaTypeEnum.Video"><i
+                        class="fa fa-play-circle-o play-icon" aria-hidden="true"></i></button>
+                    <video class="card-img-top" [src]="inf.medias[0].media_url" type="video/mp4"
+                      *ngIf="inf.medias[0].media_type === mediaTypeEnum.Video">
+                    </video>
+                  </a>
+                </li>
+              </ul>
+              <div *ngIf="influencerList?.length" id="modelCarousel" class="carousel slide" data-ride="carousel"
+                data-interval="false">
+
+                <div class="carousel-inner">
+                  <!-- <div class="imgWidthAlign" > -->
+                  <div *ngFor="let media of medias; let index = index"
+                    class="item carousel-item img-center img-responsive" [ngClass]="{'active':index==0}"
+                    attr.data-slide-number="{{index}}">
+                    <!-- {{index}} -->
+                    <img [src]="media.media_url" class="img-fluid w-100"
+                      *ngIf="media.media_type == mediaTypeEnum.Image">
+                    <video class="card-img-top" style="vertical-align: middle;" [src]="media.media_url" type="video/mp4"
+                      *ngIf="media.media_type === mediaTypeEnum.Video" controls disablepictureinpicture
+                      controlslist="nodownload">
+                    </video>
+                  </div>
+                  <!-- </div> -->
+                  <!-- (click)="slideNumber > 0 ? slideNumber - 1:''" -->
+                  <a class="carousel-control-prev carousel-control left pt-3 ml-1" href="#modelCarousel"
+                    data-slide="prev" *ngIf="medias?.length > 1"><img style="height:2.5rem"
+                      src="../../assets/Guest-final-step–5/arrow_lef-1.svg"></a>
+                  <a *ngIf="medias?.length > 1" class="carousel-control-next carousel-control right pt-3 mr-1"
+                    href="#modelCarousel" data-slide="next"><img style="height:2.5rem"
+                      src="../../assets/Guest-final-step–5/arrow_lef.svg"></a>
+                </div>
+
+
+              </div>
+              <div *ngIf="!influencerList?.length" class="justify-content-center d-flex align-items-center ht-350">
+                <label>No Medias are available with this URL and Size</label>
+              </div>
+            </div>
+            <div class="d-flex social align-items-end" *ngIf="medias?.length">
+              <a *ngIf="isCreateAccountCame" class="arrow-btn" data-toggle="modal" data-target="#createAccStepper"
+                aria-hidden="true" data-keyboard="false" data-dismiss="modal" (click)="setIndex(2)"><i
+                  style="font-size: 2.3rem" class="fa fa-arrow-circle-left " aria-hidden="true"></i></a>
+              <a class="ml-4 pointer" (click)="inviteFriend('Mail')"><img
+                  src="assets/Guest-final-step–5/social-icons-01.png"></a>
+              <a class="pointer" (click)="inviteFriend('Facebook')"><img
+                  src="assets/Guest-final-step–5/social-icons-01-1.png"></a>
+              <a class="pointer" (click)="inviteFriend('Twitter')"><img
+                  src="assets/Guest-final-step–5/social-icons-01-2.png"></a>
+              <!-- <a><img src="assets/Guest-final-step–5/social-icons-01-3.png"></a> -->
+              <a class="pointer" [popover]="sizeinfo" style=" margin-left: 5.4rem;"><img class="info"
+                  src="assets/Guest-final-step–5/info.svg">
+                <label class="ml-1">Model's Measurements</label>
+                <popover-content class="pl-1" #sizeinfo id="refSizeinfo" placement="top" [closeOnClickOutside]="true">
+                  <small class="color-dark-gry">Model is wearing size: <label
+                      class="yello mr-2">{{modelsMeasurement.size}}</label> Height: <label
+                      class="yello mr-2">{{modelsMeasurement.heightMeasurement==='CM' ? modelsMeasurement.heightCentemeter +' '+modelsMeasurement.heightMeasurement :modelsMeasurement.heightFeet +'.'+modelsMeasurement.heightInch+ ' '+modelsMeasurement.heightMeasurement}}</label>
+                    Body Type: <label class="yello mr-1">{{modelsMeasurement.bodyType}}</label> Weight: <label
+                      class="yello mr-1">{{modelsMeasurement.weightMeasurement === 'KG' ? modelsMeasurement.weightKiloGram +' '+modelsMeasurement.weightMeasurement : modelsMeasurement.weightLbs +' '+modelsMeasurement.weightMeasurement }}</label>
+                    Hips: <label
+                      class="yello">{{modelsMeasurement.hips +' '+modelsMeasurement.hipsBustWaistMeasurement}}</label>
+                    Bust: <label
+                      class="yello">{{modelsMeasurement.bust+' '+modelsMeasurement.hipsBustWaistMeasurement}}</label>
+                    Waist: <label
+                      class="yello">{{modelsMeasurement.waist+' '+modelsMeasurement.hipsBustWaistMeasurement}}</label></small>
+                </popover-content>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-6" id="modelsliderLeft">
+            <div class="header">
+              <img class="reflektsize-img" src="../../assets/Guest-final-step–5/White Banner Logo.png">
+            </div>
+            <div class="row pl-2 pr-2">
+              <div class="col-md-11 m-auto content">
+                <div class="autoScrollBox">
+                  <div class="d-flex mt-2">
+                    <label id="reflection-headline">Your Reflection is:</label>
+                    <span class="yello font-1">{{size}}</span>
+                    <img *ngIf="!iseditRefleKtSize" (click)="iseditRefleKtSize = true" class="pencile pointer"
+                      src="assets/Guest-final-step–5/pencil.svg">
+                    <select *ngIf="iseditRefleKtSize" id="editRefleKtSize" class="form-control" name="editRefleKtSize"
+                      [(ngModel)]="size" (change)="selectValue()">
+                      <option *ngFor="let sz of wearingSize">{{sz}}</option>
+                    </select>
+                    <!-- getProductByProductURL() -->
+                    <button *ngIf="iseditRefleKtSize" class="btn" id="reflektSizeSave"
+                      (click)="iseditRefleKtSize=false;getProductDetails();selectedPageNumber = 0">Save</button>
+                    <button class="btn continue-btn" data-dismiss="modal">Continu
+                      e
+                      shopping</button>
+                  </div>
+                  <div class="" *ngIf="product?.product_name">
+                    <div class="font-size-13  mt-1 color-light-gry text-capitalize">{{product?.product_name}}</div>
+                    <div class="row">
+                      <div class="col-3 border-r"><span *ngIf="product?.previousPrize"
+                          id="price-grey-color">${{product?.previousPrize}}</span><span
+                          class="price-red-color">${{product?.product_price}}</span></div>
+                      <div class="col-4  p-0" [ngClass]="{'border-r':totalReviewCount}">
+                        <div class="rating d-flex align-items-center">
+                          <star-rating [value]="productRatingStar" checkedcolor="#f4c257" uncheckedcolor="#6a6c75"
+                            size="20px" readonly="true"></star-rating><span class="rating-count d-block pl-1"
+                            *ngIf="productRatingStar">({{productRatingStar | number:'1.1-1'}})</span>
+                        </div>
+                      </div>
+                      <div class="col-3 pl-1 pointer" *ngIf="totalReviewCount" (click)="isShowAll=true"><a
+                          style="color:#0e81f5">{{totalReviewCount}}
+                          Reviews</a></div>
+                    </div>
+                    <div class=" color-dark-gry font-size-12 tborder mt-1 font-weight-bold">Reflect on these tips...
+                    </div>
+                    <div id="summary" class="darkgray">
+                      <!-- <p class="collapse color-dark-gry" id="collapseSummary">
+                        {{product?.measurement_detail[0]?.reflektmeOnTips}}
+                      </p> -->
+                      <p class="color-dark-gry" *ngIf="product?.measurement_detail[0]?.reflektmeOnTips.length <= 100">
+                        {{product?.measurement_detail[0]?.reflektmeOnTips }}</p>
+                      <read-more *ngIf="product?.measurement_detail[0]?.reflektmeOnTips.length > 100"
+                        [text]="product?.measurement_detail[0]?.reflektmeOnTips" [maxLength]="100">
+                      </read-more>
+                    </div>
+                    <div class=" color-dark-gry font-size-12 tborder mt-1 font-weight-bold">Category
+                    </div>
+                    <div id="summary" class="darkgray">
+                      <p class="color-dark-gry">{{product?.categoryName}}</p>
+                    </div>
+                    <div class="tborder mt-2 pt-2 color-dark-gry weight-700">You May Also Like...</div>
+                    <div class="row">
+                      <!-- *ngIf="productRecmmendations?.length" -->
+                      <div class="col-md-12 you-know-carousel">
+                        <div class="popover-image-slider">
+                          <div id="carousel2" class="carousel slide hz-slider" data-ride="carousel">
+                            <a class="carousel-control left" *ngIf="totalElement >3" href="#carousel2" data-slide="prev"
+                              [ngClass]="{'paginationBtn' : selectedPageNumber == 0}"
+                              (click)="getNextREcommendedProducts('prev')"
+                              [ngStyle]="{'cursor':selectedPageNumber == 0 ? 'not-allowed' : 'pointer'}"
+                              class="outerPageBtn"><img style="height: 1.1rem"
+                                src="../../assets/Guest-final-step–5/arrow.svg" class="innerPageBtn"></a>
+                            <div class="carousel-inner">
+                              <div class="active item carousel-item pos-initial" data-slide-number="0">
+                                <div class="row clearfix">
+                                  <div class="col-4" *ngFor="let product of productRecmmendations; let index = index">
+                                    <div class="slider-images-box">
+                                      <div class="slider-images">
+                                        <!-- <img [src]="product.measurement_detail[0].media[0].media_url" class="img-fluid"> -->
+                                        <img [src]="product.measurement_detail[0].media[0].media_url" class="img-fluid"
+                                          *ngIf="product.measurement_detail[0].media[0].media_type=== 'IMAGES'">
+                                        <button class="play-button" style="left:2.2rem;top:1.5rem" *ngIf="product.measurement_detail[0].media[0].media_type === mediaTypeEnum.Video"><i
+                                            class="fa fa-play-circle-o play-icon" aria-hidden="true"></i></button>
+                                        <video class="card-img-top" style="height:5rem;" [src]="product.measurement_detail[0].media[0].media_url" type="video/mp4"
+                                          *ngIf="product.measurement_detail[0].media[0].media_type === mediaTypeEnum.Video">
+                                        </video>
+                                      </div>
+                                      <div class="image-text">
+                                        <p class="mb-0"><span class="d-block text-capitalize">{{product?.product_name}}
+                                            ,{{product.measurement_detail[0].size}}</span></p>
+                                        <star-rating value="{{product.rating}}" checkedcolor="#f5c254"
+                                          uncheckedcolor="#979797" size="14px" readonly="true"></star-rating>
+                                        <span class="doller-box d-block">${{product?.product_price}}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+
+                            <a class="carousel-control right" *ngIf="totalElement >3" href="#carousel2" data-slide="next"
+                              [ngClass]="{'paginationBtn' : (!productRecmmendations.length || ((selectedPageNumber * 3) + productRecmmendations.length) == totalElement || productRecmmendations.length < 3)}"
+                              (click)="getNextREcommendedProducts('next')"
+                              [ngStyle]="{'cursor': (!productRecmmendations.length || ((selectedPageNumber * 3) + productRecmmendations.length) == totalElement || productRecmmendations.length < 3) ? 'not-allowed' :'pointer'}"
+                              class="outerPageBtn" style="margin-right: 10px;"><img style="height: 1.1rem"
+                                class="innerPageBtn" src="../../assets/Guest-final-step–5/arrow-1.svg"></a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 color-dark-gry text-center" *ngIf="isViewAll">
+                        <span class="cursor-p" (click)="getViewAllProducts()">{{isViewAll ? 'View' : ''}} All
+                          Products</span>
+                      </div>
+                    </div>
+                    <div class="color-dark-gry font-size-13  mt-2" *ngIf="totalReviewCount > 0">{{totalReviewCount}}
+                      Customers Reviews
+                    </div>
+                    <!-- review -->
+                    <div *ngIf="reviews.length && !isShowAll" class="reviewHeight">
+                      <div class="mt-1 tborder" *ngFor="let review of reviewsOne">
+                        <div class="d-flex align-items-center color-dark-gry">
+                          <img class="round-img ml-0 mr-2" src="../../../assets/avatar.jpg">
+                          <label class="text-capitalize">{{review?.user?.firstName}}</label>
+                          <div class="ml-auto">{{review?.created_date | date : 'dd MMM yyyy'}}</div>
+                        </div>
+                        <div class="d-flex">
+                          <star-rating [value]="review.reviewStar" checkedcolor="#f5c254" uncheckedcolor="#979797"
+                            size="18px" readonly="true"></star-rating>
+                          <label class="black-color weight-600">{{review?.reviewTitle}}</label>
+                        </div>
+                        <div class="mt-0 color-dark-gry">{{review?.reviewDesc}}</div>
+
+                        <div class="col-12" *ngIf="review?.media?.length">
+                          <div class="row ">
+                            <div class="col-3 " *ngFor="let med of review.media">
+                              <div class="custome-images-box  pull-left">
+                                <div class="custom-images">
+                                  <img [src]="med?.media_url" class="img-fluid"
+                                    *ngIf="med.media_type === 'REVIEW_IMAGE'">
+                                  <video style="height: 4rem;width: 4rem;" controls
+                                    *ngIf="med.media_type === 'REVIEW_VIDEO'">
+                                    <source [src]="med?.media_url" type="video/mp4" style="height: 4rem;width: 4rem;">
+                                  </video>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="reviews.length && isShowAll" class="reviewHeight">
+                      <div class="mt-1 tborder" *ngFor="let review of reviews">
+                        <div class="d-flex align-items-center color-dark-gry">
+                          <img class="round-img ml-0 mr-2" src="../../../assets/avatar.jpg">
+                          <label class="text-capitalize">{{review?.user?.firstName}}</label>
+                          <div class="ml-auto">{{review?.created_date | date : 'dd MMM yyyy'}}</div>
+                        </div>
+                        <div class="d-flex">
+                          <star-rating [value]="review.reviewStar" checkedcolor="#f5c254" uncheckedcolor="#979797"
+                            size="18px" readonly="true"></star-rating>
+                          <label class="black-color weight-600">{{review?.reviewTitle}}</label>
+                        </div>
+                        <div class="mt-0 color-dark-gry">{{review?.reviewDesc}}</div>
+                        <div class="col-12" *ngIf="review?.media?.length">
+                          <div class="row ">
+                            <div class="col-3" *ngFor="let med of review.media">
+                              <div class="custome-images-box  pull-left">
+                                <div class="custom-images">
+                                  <img [src]="med?.media_url" class="img-fluid"
+                                    *ngIf="med.media_type === 'REVIEW_IMAGE'">
+                                  <video style="height: 4rem;width: 4rem;" controls
+                                    *ngIf="med.media_type === 'REVIEW_VIDEO'">
+                                    <source [src]="med?.media_url" type="video/mp4" style="height: 4rem;width: 4rem;">
+                                  </video>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-2" *ngIf="isUserLoggedIn">
+                      <div class="col-4">
+                        <button class="btn show-review-btn" *ngIf="reviews.length > 1"
+                          (click)="isShowAll = !isShowAll">{{isShowAll ? 'Hide':'Show'}} All
+                          Reviews</button>
+                      </div>
+                      <div class="col-2"></div>
+                      <div class="col-5 text-right">
+                        <button class="btn leaveReview-btn border-orange" data-toggle="modal" data-target="#reviewBox"
+                          aria-hidden="true" data-keyboard="false" data-dismiss="modal">Leave a Review</button>
+                      </div>
+                    </div>
+
+                    <div class="row" *ngIf="!isUserLoggedIn">
+                      <div class=" mt-2">
+                        <button class="btn show-review-btn ml-3" *ngIf="reviews.length > 1"
+                          (click)="isShowAll = !isShowAll">{{isShowAll ? 'Hide':'Show'}} All
+                          Reviews</button>
+                        <label class="upload-info2 mt-1 ml-3">To Submit a Review Please </label>
+                        <button data-toggle="modal" class="btn signin-btn" aria-hidden="true" data-keyboard="false"
+                          data-target="#signInModal" data-dismiss="modal" (click)="clearLocalStorage()">SIGN IN</button>
+                        <label class="upload-info2 mt-1"> or </label>
+                        <button data-toggle="modal" class="btn signin-btn" aria-hidden="true" data-keyboard="false"
+                          data-dismiss="modal" (click)="clearLocalStorage('create')">CREATE AN
+                          ACCOUNT</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="" *ngIf="!product?.product_name">
+                    <!-- <label>No product information is available with this URL.</label> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div *ngIf="!medias.length && !product"
+          class="row no-gutters m-auto d-flex justify-content-center align-items-center" style="height: 15rem">
+          <label>There is no product associated with this URL</label>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!----signIn model-- -->
+<div class="sign-popover-box">
+  <div class="modal fade" id="signInModal" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Modal body -->
+        <div class="header">
+          <button type="button" class="close mr-1" data-dismiss="modal"
+            (click)="loginForm?.resetForm()">&times;</button>
+          <img class="image" src="../../assets/Guest-final-step–5/White Banner Logo.png">
+        </div>
+        <form #loginForm="ngForm" (ngSubmit)="loginForm.valid && login()">
+          <div class="row pl-pr-2">
+            <div class="col-md-11 pl-0 pr-0 m-auto content">
+              <div class="row pl-3 pr-3">
+                <div class="col-12 font-1 text-center">Sign In</div>
+                <div class="col-12 mt-2">
+                  <div class="form-group mb-0">
+                    <input type="text" pattern="[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+)+((\.)[a-z]{2,})" name="email"
+                      [(ngModel)]="loginData.email" class="form-control login-fom-control border-r10" #email="ngModel"
+                      placeholder="Email" [ngClass]="{'require':!email.valid && loginForm.submitted}" required>
+                    <a class="form-control-icon-reflektme"><i class="fa fa-user icon"></i></a>
+                  </div>
+                </div>
+                <div class="col-12 mt-2">
+                  <div class="form-group mb-0">
+                    <input type="password" class="form-control login-fom-control border-r10 mt-2" minlength="8"
+                      maxlength="20" placeholder="Password" #password="ngModel" name="password"
+                      [(ngModel)]="loginData.password" required>
+                    <a class="form-control-icon-reflektme" aria-hidden="true"><i class="fa fa-lock icon"></i></a>
+                  </div>
+                </div>
+                <div class="row darkgray mt-2">
+                  <div class="col-6 text-center">
+                    <input type="checkbox" name="rememberMeCred" [(ngModel)]="rememberMeCred"> Remember me
+                  </div>
+                  <div class="col-6 text-center">
+                    <button type="button" class="btn font-size-12 pt-0" style="width:200px" data-toggle="modal"
+                      data-target="#forgotPasswordModal">
+                      Forgot Password?
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+              <div class="modal" id="forgotPasswordModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="p-2">
+                      <button #closeBtn type="button" class="close ml-auto p-2" data-dismiss="modal"
+                        (click)="forgotForm?.resetForm()">&times;</button>
+                      <h4 class="text-center">Forgot Password</h4>
+                    </div>
+
+                    <div class="col-12">
+                      <form #forgotForm="ngForm" (ngSubmit)="forgotForm.valid && forgotPassword()">
+                        <label>Email:</label>
+                        <input type="text" class="form-control border-r10" placeholder="Email" name="fEmail"
+                          #fEmail="ngModel" [(ngModel)]="forgot.fEmail"
+                          pattern="[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+)+((\.)[a-z]{2,4})" autocomplete="false" readonly
+                          onfocus="this.removeAttribute('readonly');" required>
+                        <div *ngIf="fEmail.invalid && (fEmail.dirty || fEmail.touched)" class="text-danger">
+                          <div *ngIf="fEmail.errors.required">
+                            Email is required.
+                          </div>
+                          <div *ngIf="fEmail.errors.pattern" class="text-danger">
+                            Please enter valid email
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <button type="button" class="btn font-size-12" data-dismiss="modal"
+                            (click)="forgotForm?.resetForm()">
+                            Cancel
+                          </button>
+                          <button type="submit" class="btn font-size-12">
+                            Ok
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-2">
+                <button type="submit" [disabled]="loginForm.invalid"
+                  class="btn btn-warning btn-block pop-login-btn">Login</button>
+                <!-- <button type="button" data-toggle="modal" aria-hidden="true" style="display:none" id="loginBtn"
+                  data-keyboard="false" data-target="#reflektSize" data-dismiss="modal"></button> -->
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- thanksModel -->
+
+<div class="modal" id="thanksModel" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="header">
+        <button type="button" class="close mr-1" data-dismiss="modal">&times;</button>
+        <img class="image" src="../../assets/Guest-final-step–5/White Banner Logo.png">
+      </div>
+      <div class="col-md-11 m-auto intext">
+        <div class="tick"><a class=""><img src="../../assets/Guest-final-step–5/tick.svg"></a></div>
+        <div class="text text-center">Thank you!</div>
+        <div class="mt-3 darkgray text-center">Account created successfully</div>
+        <div class="darkgray text-center">Now you can <a class="yello">sign in</a> to see your profile</div>
+        <div class="mt-3 mb-4 text-center">
+          <button class="btn return-btn" data-dismiss="modal">Return to Shopping</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Review Modal -->
+<div class="model-popover-box-wrapper">
+  <div class="modal fade" id="reviewBox" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="header">
+          <button type="button" class="close mr-2 mt-2" data-dismiss="modal"
+            (click)="reviewForm?.resetForm()">&times;</button>
+          <img class="image" src="assets/Guest-final-step–5/White Banner Logo.png">
+        </div>
+        <form #reviewForm="ngForm" (ngSubmit)="reviewForm.valid && addReview(reviewData,reviewForm)">
+          <div class="row pl-pr-2">
+            <div class="col-md-11 m-auto content">
+              <div class="m-auto content darkgray">
+                <div class="col-12 mt-4 pl-0 pr-0">
+                  <div class="col-12 mt-2 preference-tag"><b>Submit a Product Review</b>(optional)</div>
+                  <div class="col-12 mt-1 font-s11 text-capitalize">{{product.product_name}}</div>
+                </div>
+                <div class="grayline mt-1 mb-1"></div>
+                <div class="d-flex label-text-11">
+                  <label>
+                    Overall Rating:
+                  </label>
+                  <div class="rating">
+                    <star-rating value="5" checkedcolor="#f4c257" uncheckedcolor="#6a6c75" size="16px" readonly="false"
+                      (rate)="onRate($event)"></star-rating>
+                  </div>
+                </div>
+                <div class="label-text-11">
+                  <label> Add a Headline</label>
+                  <input class="col-12 form-control" type="text" placeholder="What is most important to know?"
+                    #reviewTitle="ngModel" name="reviewTitle" [(ngModel)]="reviewData.reviewTitle" required
+                    maxlength="30">
+                  <div *ngIf="reviewForm.submitted" class="text-danger">
+                    <div *ngIf="reviewTitle?.errors?.required">
+                      Review is required.
+                    </div>
+                    <!-- <div *ngIf="reviewTitle?.errors?.pattern" class="text-danger">
+                      Please enter Characters
+                    </div> -->
+                  </div>
+                </div>
+                <div class="mt-2 label-text-11">
+                  <label>Write your Review</label>
+                  <textarea class="col-12 form-control" rows="3" placeholder="What did you like or dislike?"
+                    #reviewDesc="ngModel" name="reviewDesc" [(ngModel)]="reviewData.reviewDesc" required
+                    maxlength="100"></textarea>
+                  <div *ngIf="reviewForm.submitted" class="text-danger">
+                    <div *ngIf="reviewDesc?.errors?.required">
+                      Review description is required.
+                    </div>
+                    <!-- <div *ngIf="reviewTitle?.errors?.pattern" class="text-danger">
+                        Please enter Characters
+                      </div> -->
+                  </div>
+                </div>
+                <div class="mt-2 label-text-11">
+                  <label>Add your Own Photos and Videos for Use In This Tool</label>
+                </div>
+                <div class="text-center darkgray UploadFile" appDrag (files)="filesDropped($event)">
+                  <p>Drag & Drop Files Here or</p>
+                  <input type="file" title="Upload Files" style="display:none;" id="filesToUpload" name="filesToUpload"
+                    [(ngModel)]="filesToUpload" (change)="getFilesAfterUpload($event)" multiple
+                    accept="image/*,video/*">
+                  <label class="btn Uploadbutton" for="filesToUpload">Upload Files</label>
+                  <p class="lightgray" style="font-size: 10px">only jpeg, png, git and mp4 files with max size of 15
+                    MB
+                  </p>
+                </div>
+                <div *ngIf="uploadedFiles.length">
+                  <label>Uploaded Files</label>
+                  <label *ngFor="let f of uploadedFiles">{{f.media_name}}</label>
+                </div>
+                <!-- <label class="mb-0 label-text-11">Uploading <span class="yello">{{reviewImage.length}}</span> photos
+                  <span class="yello">{{reviewVideo.length}}</span> video</label> -->
+              </div>
+            </div>
+          </div>
+          <button type="submit" style="margin-top:-31px" class="btn yello-bckgnd btn-block" data-toggle="modal"
+            aria-hidden="true" data-keyboard="false">SAVE</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,169 @@
+<div class="mb-2 pb-1 lightgray">
+  You can enter the details of the selected images from the uploaded list
+</div>
+<div class="gray-seperator mb-3"></div>
+<form #f="ngForm" (ngSubmit)="f.valid && validateForm()">
+  <fieldset [disabled]="isFormEnable===false">
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label>Product Name</label>
+          <input type="text" class="form-control" #productName="ngModel" name="productName"
+            [(ngModel)]="productDetails.product_name"
+            [ngClass]="{'require': f.submitted && !productName.valid && isSave}" required>
+        </div>
+        <div class="form-group">
+          <label>Product URL</label>
+          <input type="text" class="form-control" #productUrl="ngModel"
+            [ngClass]="{'require': f.submitted && !productUrl.valid && isSave}" name="productUrl"
+            [(ngModel)]="productDetails.product_url" required>
+        </div>
+        <div class="form-group assign-tag-box">
+          <label>Assign Tag</label><span class="card-text"> Separate tags with commas</span>
+          <p-chips name="assignTag" [(ngModel)]="productDetails.assign_tag"
+            [styleClass]="(f.submitted && !productDetails.assign_tag && isSave)?'require':''"></p-chips>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>Product Category</label>
+          <select class="form-control" name="productCategory" [(ngModel)]="productDetails.category_name"
+            (change)="findCategoryId(productDetails.category_name)" #prodCategory="ngModel"
+            [ngClass]="{'require': f.submitted && !prodCategory.valid && isSave}" required>
+            <option value="" selected hidden disabled></option>
+            <option *ngFor="let category of allcategoryArr" [value]="category.category_name">{{category.category_name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Product price</label>
+          <input type="text" class="form-control" name="productPrice" [(ngModel)]="productDetails.product_price"
+            #prodPrice="ngModel" [ngClass]="{'require': f.submitted && !prodPrice.valid && isSave}" required>
+        </div>
+        <div class="form-group">
+          <label>Size Tag</label>
+          <span><label class="font-s10"> Size Metrics:</label><a> US</a>
+            <img class="pencil-img" src="assets/Guest-final-step–5/pencil.svg">
+          </span>
+          <select class="form-control" name="size" [(ngModel)]="productDetails.size_tag" (change)="findMeasurementId()"
+            #_size="ngModel" [ngClass]="{'require': f.submitted && !_size.valid && isSave}" required>
+            <option selected value="" hidden disabled></option>
+            <option *ngFor="let sizes of measurements" [value]="sizes.size">{{sizes.size}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="mb-2 lightgray">Model Measurements</div>
+    <div class="gray-seperator mb-3"></div>
+    <div class="Model-Measurements-wrapper d-flex justify-content-between">
+      <div class="form-group width7">
+        <label>Wearing Size</label>
+        <select class="form-control" name="wearingSize" #wearing_Size="ngModel" [(ngModel)]="measurement_detailObj.size"
+          [ngClass]="{'require': f.submitted && !wearing_Size.valid && isSave}" required>
+          <option selected value="" hidden disabled></option>
+          <option *ngFor="let sizes of wearingSize" [value]="sizes.size">{{sizes.size}}</option>
+        </select>
+      </div>
+      <div class="form-group width7">
+        <label>Heigth</label>
+        <div class="switch6" style="border:1px solid #999999;">
+          <label class="switch6-light">
+            <input type="checkbox" name="isHeightInCm" [(ngModel)]="isHeightInCm">
+            <span class="pointer">
+              <span>FEET</span>
+              <span>CM</span>
+            </span>
+            <a class="btn switch-colr"></a>
+          </label>
+        </div>
+        <input *ngIf="isHeightInCm" type="number" placeholder="cm" class="form-control no-spin" #hight="ngModel"
+          name="height" [(ngModel)]="measurement_detailObj.height"
+          [ngClass]="{'require': f.submitted && !hight.valid && isSave}" required>
+        <div *ngIf="!isHeightInCm" class="d-flex">
+          <input type="number" placeholder="feet" class="form-control no-spin" #hight="ngModel" name="height"
+            [(ngModel)]="measurement_detailObj.height" [ngClass]="{'require': f.submitted && !hight.valid && isSave}"
+            required>
+          <input type="number" placeholder="inch" class="form-control no-spin ml-1">
+        </div>
+      </div>
+      <div class="form-group width6">
+        <label>Body Type</label>
+        <select class="form-control" name="bodyType" #body_type="ngModel" [(ngModel)]="measurement_detailObj.bodyType"
+          [ngClass]="{'require': f.submitted && !body_type.valid && isSave}" required>
+          <option value="" selected hidden disabled></option>
+          <option value="STRAIGHT_RECTANGLE">Straight Rectangle</option>
+          <option value="TRIANGLE_PEAR">Triangle Pear</option>
+          <option value="SPOON">Spoon</option>
+          <option value="TOP_HOURGLASS">Top Hourglass</option>
+          <option value="BOTTOM_HOURGLASS">Bottom Hourglass</option>
+          <option value="INVERTED_TRIANGLE_APPLE">Inverted Triangle Apple</option>
+          <option value="ROUND_OVAL">Round Oval</option>
+          <option value="DIAMOND">Diamond</option>
+          <option value="ATHLETIC">Athletic</option>
+
+        </select>
+      </div>
+      <div class="form-group width7">
+        <label>Weight</label>
+        <div class="switch6 " style="border:1px solid #999999;">
+          <label class="switch6-light" onclick="">
+            <input type="checkbox" name="isweightInLbs" [(ngModel)]="isweightInLbs">
+            <span class="pointer">
+              <span>KG</span>
+              <span>LBS</span>
+            </span>
+            <a class="btn switch-colr"></a>
+          </label>
+        </div>
+        <input *ngIf="isweightInLbs" type="number" placeholder="lbs" class="form-control no-spin" name="weight"
+          [(ngModel)]="measurement_detailObj.weight" #Weight="ngModel"
+          [ngClass]="{'require': f.submitted && !Weight.valid && isSave}" required>
+        <input *ngIf="!isweightInLbs" type="number" placeholder="kg" class="form-control no-spin" name="weight"
+          [(ngModel)]="measurement_detailObj.weight" #Weight="ngModel"
+          [ngClass]="{'require': f.submitted && !Weight.valid && isSave}" required>
+      </div>
+      <div class="form-group">
+        <div class="">
+          <div><label>Hips/Bust/Waist</label></div>
+          <div class="switch6 margin-left-9" style="border:1px solid #999999;">
+            <label class="switch6-light">
+              <input type="checkbox" name="ismeasurementInCm" [(ngModel)]="ismeasurementInCm">
+              <span class="pointer">
+                <span>IN</span>
+                <span>CM</span>
+              </span>
+              <a class="btn switch-colr"></a>
+            </label>
+          </div>
+        </div>
+        <div *ngIf="!ismeasurementInCm" class="d-flex">
+          <input type="number" class="form-control no-spin p-0 width4" name="hips" placeholder="inch"
+            [(ngModel)]="measurement_detailObj.hips" #hips="ngModel"
+            [ngClass]="{'require': f.submitted && !hips.valid && isSave}" required>
+
+          <input type="number" class="form-control no-spin p-0 width4" name="bust" placeholder="inch"
+            [(ngModel)]="measurement_detailObj.bust" #bust="ngModel"
+            [ngClass]="{'require': f.submitted && !bust.valid && isSave}" required>
+
+          <input type="number" class="form-control no-spin p-0 width4" name="waist" placeholder="inch"
+            [(ngModel)]="measurement_detailObj.waist" #waist="ngModel"
+            [ngClass]="{'require': f.submitted && !waist.valid && isSave}" required>
+        </div>
+        <div *ngIf="ismeasurementInCm" class="d-flex">
+          <input type="number" class="form-control no-spin p-0 width4" name="hips" placeholder="cm"
+            [(ngModel)]="measurement_detailObj.hips" #hips="ngModel"
+            [ngClass]="{'require': f.submitted && !hips.valid && isSave}" required>
+
+          <input type="number" class="form-control no-spin p-0 width4" name="bust" placeholder="cm"
+            [(ngModel)]="measurement_detailObj.bust" #bust="ngModel"
+            [ngClass]="{'require': f.submitted && !bust.valid && isSave}" required>
+
+          <input type="number" class="form-control no-spin p-0 width4" name="waist" placeholder="cm"
+            [(ngModel)]="measurement_detailObj.waist" #waist="ngModel"
+            [ngClass]="{'require': f.submitted && !waist.valid && isSave}" required>
+        </div>
+      </div>
+    </div>
+    <button style="display:none" id="submitDetails" type="submit">xyz</button>
+  </fieldset>
+</form>

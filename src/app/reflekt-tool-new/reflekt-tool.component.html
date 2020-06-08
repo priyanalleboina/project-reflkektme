@@ -1,0 +1,30 @@
+<div class="login-wrapper lgray-bckgnd d-flex justify-content-center align-items-center">
+  <div class="login-box d-flex justify-content-end">
+    <form #f="ngForm" (ngSubmit)="login()">
+      <a class="b-logo">
+        <img class="image" src="../../assets/Guest-final-step–5/White Banner Logo.png">
+      </a>
+      <div class="form-box shadow-sm">
+        <label id="signin" class="lable-title font-1 darkgray ml-3" for="exampleInputEmail1">Sign In </label>
+        <div class="form-group">
+          <input type="text" class="form-control border-r10" placeholder="Email" name="email"
+            [(ngModel)]="loginData.email" required autocomplete="off">
+          <a class="form-control-icon"><img src="assets/login/login icons-01.png"></a>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control border-r10 mt-2" placeholder="Password" name="password"
+            [(ngModel)]="loginData.password" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
+            #password="ngModel" required minlength="8" maxlength="20">
+
+          <a class="form-control-icon"><img src="assets/login/login icons-02.png"></a>
+          <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+            <div *ngIf="password.errors.minlength">Password must be at least 8-20 characters</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-block login-btn" [disabled]="f.invalid">Login</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+<app-toolcomp #ProfileModal></app-toolcomp>

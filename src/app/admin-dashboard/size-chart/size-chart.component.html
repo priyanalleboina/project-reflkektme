@@ -1,0 +1,256 @@
+<!-- <div class="container">
+    <form>
+        <div class="font-1 mt-2">Size Chart<small class="small-size">Size Metrics: US</small></div>
+        <div class="row mt-2">
+            <div class="col-3">
+                <div class="text-color" style="background-color: #7f8084; border-radius: 0.4rem; height: 32rem;">
+                    <div class="text-center font-1 pt-3 pb-3">Select Clothing</div>
+                    <div class="font-1 chart-sheet">
+                        <ul>
+                            <li (click)="findAllcategoryObj(clothingTypeEnum.TopsTShirtsShirts)"
+                                [ngClass]="activeTab === clothingTypeEnum.TopsTShirtsShirts ? 'active' : ''">
+                                <a>Tops,T-Shitrs & Shirts</a></li>
+                            <li (click)="findAllcategoryObj(clothingTypeEnum.DressesJumpsuits)"
+                                [ngClass]="activeTab === clothingTypeEnum.DressesJumpsuits ? 'active' : ''"><a>Dresses &
+                                    Jumpsuits</a></li>
+                            <li (click)="findAllcategoryObj(clothingTypeEnum.Trousers)"
+                                [ngClass]="activeTab === clothingTypeEnum.Trousers ? 'active' : ''"><a>Trousers</a></li>
+                            <li (click)="findAllcategoryObj(clothingTypeEnum.JeansJeggings)"
+                                [ngClass]="activeTab === clothingTypeEnum.JeansJeggings ? 'active' : ''"><a>Jeans &
+                                    Leggings</a></li>
+                            <li (click)="findAllcategoryObj(clothingTypeEnum.SkirtsShorts)"
+                                [ngClass]="activeTab === clothingTypeEnum.SkirtsShorts ? 'active' : ''"><a>Skirts &
+                                    Shorts</a></li>
+                            <li (click)="findAllcategoryObj(clothingTypeEnum.Leggings)"
+                                [ngClass]="activeTab === clothingTypeEnum.Leggings ? 'active' : ''"><a>Leggings</a></li>
+                            <li (click)="findAllcategoryObj(clothingTypeEnum.Winterwear)"
+                                [ngClass]="activeTab === clothingTypeEnum.Winterwear ? 'active' : ''"><a>Winterwear</a>
+                            </li>
+                            <li (click)="findAllcategoryObj(clothingTypeEnum.ShurgsCapes)"
+                                [ngClass]="activeTab === clothingTypeEnum.ShurgsCapes ? 'active' : ''"><a>Shurgs &
+                                    Capes</a></li>
+                            <li (click)="findAllcategoryObj(clothingTypeEnum.Rainwear)"
+                                [ngClass]="activeTab === clothingTypeEnum.Rainwear ? 'active' : ''"><a>Rainwear</a></li>
+                            <li (click)="findAllcategoryObj(clothingTypeEnum.SuitsBlazers)"
+                                [ngClass]="activeTab === clothingTypeEnum.SuitsBlazers ? 'active' : ''"><a>Suits &
+                                    Blazers</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="card chart-sheet-table">
+                    <table class="table table-borderless darkgray">
+                        <thead>
+                            <tr>
+                                <th class="text-center" width="8%">Size</th>
+                                <th class="" width="16%">Current Value</th>
+                                <th width="50%">New Value</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let category of allcategory;let i = index">
+                                <td class="text-center">{{category.size}}</td>
+                                <td class=""><span class="td-spacing">{{category.value}}</span></td>
+                                <td><input class="value-form-control w-100" type="text" placeholder="Type new number"
+                                        name="size-{{i}}" [(ngModel)]="newSize[i]" #newsize="ngModel" required></td>
+                                <td class="text-right">
+                                    <button type="button" class="btn solid-btn yello-bckgnd table-btn"
+                                        (click)="updateSizeValue(category.size_id , newSize[i]); newSize[i] = ''"
+                                        [disabled]="newSize[i] === '' || !newSize[i]">Save</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div> -->
+
+<div class="row">
+  <div class="col-12 d-flex">
+    <div class="col-2">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div class="col-10 mt-70 align-width-screen">
+      <div class="chart-box-min-height">
+        <div class="font17 heading-color mb-2 mt-3">
+          <h6>Size Chart (universal standard)</h6>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="size-chart-table">
+              <h5>Apparel</h5>
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">USA</th>
+                      <th scope="col">UK</th>
+                      <th scope="col">EUR</th>
+                      <th scope="col">Bust</th>
+                      <th scope="col">Waist</th>
+                      <th scope="col">Low Hip</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="large-font">2X</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font">2X</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font">XS</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font">S</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font">M</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font">L</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font td-border-bottom">XL</td>
+                      <td class="td-border-bottom"><span class="td-padding">6</span><span>8</span></td>
+                      <td class="td-border-bottom"><span class="td-padding">10</span><span>12</span></td>
+                      <td class="td-border-bottom"><span class="td-padding">38</span><span>40</span></td>
+                      <td class="td-border-bottom"><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td class="td-border-bottom"><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td class="td-border-bottom"><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="size-chart-table">
+              <h5>Denim</h5>
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">USA</th>
+                      <th scope="col">UK</th>
+                      <th scope="col">EUR</th>
+                      <th scope="col">Bust</th>
+                      <th scope="col">Waist</th>
+                      <th scope="col">Low Hip</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="large-font">2X</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font">2X</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font">2X</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font">2X</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font">2X</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font">2X</td>
+                      <td><span class="td-padding">6</span><span>8</span></td>
+                      <td><span class="td-padding">10</span><span>12</span></td>
+                      <td><span class="td-padding">38</span><span>40</span></td>
+                      <td><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                    <tr>
+                      <td class="large-font td-border-bottom">2X</td>
+                      <td class="td-border-bottom"><span class="td-padding">6</span><span>8</span></td>
+                      <td class="td-border-bottom"><span class="td-padding">10</span><span>12</span></td>
+                      <td class="td-border-bottom"><span class="td-padding">38</span><span>40</span></td>
+                      <td class="td-border-bottom"><span class="td-padding">37*</span><span>38.3"</span></td>
+                      <td class="td-border-bottom"><span class="td-padding">30.5"</span><span>32"</span></td>
+                      <td class="td-border-bottom"><span class="td-padding">40"</span><span>41"</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,185 @@
+<div class="row">
+  <div class="col-12 d-flex">
+    <div class="col-2">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div class="col-10 mt-70 manage-table-box mange-box-min-height">
+      <div class="mt-3 font17 heading-color mb-2">Manage Users</div>
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr class="table-head">
+              <td width="18%"><label class="table-checkbox">
+                  <input type="checkbox" [(ngModel)]="selectAllCheckbox" (change)="selectAll($event);">
+                  <span class="checkmark"></span>
+                </label>Profile Name</td>
+              <td width="9%">Role</td>
+              <td width="18%">Email Address</td>
+              <td width="17%">Media</td>
+              <td width="10%" class="status_width">Status</td>
+              <td width="30%" [ngClass]="slectedUsersList.length>=2?'pt-3':''">Actions<button *ngIf="(slectedUsersList.length>=2)" type="button"
+                  class="btn mr-2 ml-1 add-influencer-btn white yello-bckgnd" data-target="#deleteModal"
+                  data-toggle="modal">Delete
+                  Selected Profiles </button>
+                <select class="form-control d-inline w-auto mr-1 pt-0" *ngIf="(slectedUsersList.length>=2)"
+                  [(ngModel)]="userStatus">
+                  <option value="ACTIVE">Active</option>
+                  <option value="INACTIVE">InActive</option>
+                </select><button type="button" *ngIf="(slectedUsersList.length>=2)"
+                  class="btn add-influencer-btn white yello-bckgnd sub_margin" data-toggle="modal"
+                  (click)="updateUsersListStatus(userStatus)">Submit</button></td>
+            </tr>
+          </thead>
+          <tbody *ngIf="profileData.length>0">
+            <tr *ngFor="let profile of profileData; let i= index">
+              <td *ngIf="!profile.isEditProfile">
+                <label class="table-checkbox"><input type="checkbox" [(ngModel)]="profile.checked"
+                    (change)="slectdata(profile,$event)"><span class="checkmark"></span></label>
+                <img *ngIf="profile.media!==null" class="round-img" [src]="profile.media.media_url">
+                <img *ngIf="profile.media===null" class="round-img" src="http://placehold.it/180">
+                <label class="yello ml-2 mb-0 overme nameWidth" title="{{profile.firstName}} {{profile.lastName}}">{{profile.firstName}} {{profile.lastName}}</label>
+              </td>
+              <td *ngIf="!profile.isEditProfile" class="td-content">{{profile.role.role | titlecase}}</td>
+              <td *ngIf="!profile.isEditProfile" class="td-content overme emailWidth">{{profile.email}}</td>
+              <!-- {{(profile.email | limitTo: 15) + (profile.email.length > 15 ? '...' : '')}} -->
+              <!-- {{expression | slice:begin:end}} eclips -->
+              <td *ngIf="!profile.isEditProfile">
+                <div class="td-content">
+                  <span class="border-right">Photos<span class="badge">{{profile.imageCount}}</span></span>
+                  <span>Videos<span class="badge yello-bckgnd">{{profile.videoCount}}</span></span>
+                </div>
+              </td>
+              <td *ngIf="!profile.isEditProfile">
+                <label class="td-content"><i class="fa fa-circle mr-1"
+                    [ngClass]="profile.status==='ACTIVE'?'green-dot':'orange-dot'"></i>{{profile.status | titlecase}}</label>
+              </td>
+              <td *ngIf="!profile.isEditProfile">
+                <button *ngIf="profile.status==='ACTIVE' && !(slectedUsersList.length>=2 && profile.checked==true)"
+                  type="button" class="btn add-influencer-hollobtn mr-2"
+                  (click)="updateProfileStatus('INACTIVE',profile.userId)">Deactivate</button>
+                <button *ngIf="profile.status==='INACTIVE' && !(slectedUsersList.length>=2 && profile.checked==true)"
+                  type="button" class="btn add-influencer-hollobtn mr-2"
+                  (click)="updateProfileStatus('ACTIVE',profile.userId)">Activate</button>
+                <button type="button" class="btn add-influencer-hollobtn mr-2"
+                  (click)="editProfile(profile,i)">Edit</button>
+                <button *ngIf="!(slectedUsersList.length>=2 && profile.checked==true)" type="button"
+                  class="btn add-influencer-btn white yello-bckgnd" data-target="#deleteModal" data-toggle="modal"
+                  (click)="deletesingleProfile(profile.userId)">Delete
+                  Profile</button>
+
+                <!-- Delete Popup -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header yello-bckgnd">
+                        <h3 class="text-center white ml-5 pl-5">Delete confirmation</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body text-center">
+                        Are You Sure You Want To Delete It ?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn nobtn">No</button>
+                        <button type="button" style="font-size:0.875rem !important"
+                          class="btn white yesbutton yello-bckgnd" data-dismiss="modal"
+                          (click)="deleteUserProfile()">Yes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <!-- =====edit=========== -->
+              <td *ngIf="profile.isEditProfile" class="d-flex">
+                <label class="table-checkbox">
+                  <input type="checkbox"><span class="checkmark"></span>
+                </label>
+                <input type="file" title="Upload New Photo" name="file_uploade" style="display:none;"
+                  (change)="uploadFile($event,profile.userId)" id="selectedFile" [(ngModel)]="fileUploade">
+                <label for="selectedFile">
+                  <img *ngIf="profile.media===null" class="round-img" src="http://placehold.it/180">
+                  <img *ngIf="profile.media!==null" class="round-img" [src]="profile.media.media_url">
+                </label>
+                <!-- <img *ngIf="profile.IsChangeProfileImg===false"  class="round-img" src="http://placehold.it/180" for="selectedFile">
+                              <img *ngIf="profile.IsChangeProfileImg===true" class="round-img" [src]="profileImage" for="selectedFile"> -->
+                <label class="yello ml-2">
+                  <input type="text" class="form-control edit-input" name="firstName"
+                    [(ngModel)]="profileArr[i].firstName" #firstName="ngModel" required
+                    pattern="^[a-zA-z]+([\s][a-zA-Z]+)*$" maxlength="15" minlength="2"
+                    (input)="firstNameValidn($event)">
+                  <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="text-danger"
+                    style="font-size: 0.625rem;">
+                    <div *ngIf="firstName.errors.required">
+                      First Name is required.
+                    </div>
+                    <div *ngIf="firstName.errors.pattern || firstName.errors.maxlength || firstName.errors.minlength"
+                      class="text-danger">
+                      only char's min 2 & max 15
+                    </div>
+                  </div>
+                </label>
+                <label class="yello ml-2">
+                  <input type="text" class="form-control edit-input" name="lastName"
+                    [(ngModel)]="profileArr[i].lastName" #lastName="ngModel" required
+                    pattern="^[a-zA-z]+([\s][a-zA-Z]+)*$" maxlength="15" minlength="2" (input)="lastNameValidn($event)">
+                  <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="text-danger"
+                    style="font-size: 0.625rem;">
+                    <div *ngIf="lastName.errors.required">
+                      Latst Name is required.
+                    </div>
+                    <div *ngIf="lastName.errors.pattern || lastName.errors.maxlength || lastName.errors.minlength"
+                      class="text-danger">
+                      only char's min 2 & max 15
+                    </div>
+                  </div>
+                </label>
+              </td>
+              <td *ngIf="profile.isEditProfile" class="td-content">
+                <input type="text" class="form-control edit-input" name="role" [(ngModel)]="profileArr[i].role"
+                  #role="ngModel" disabled required pattern="^[a-zA-z]+([\s][a-zA-Z]+)*$" maxlength="50">
+                <div *ngIf="role.invalid && (role.dirty || role.touched)" class="text-danger">
+                  <div *ngIf="role.errors.required">
+                    Role is required.
+                  </div>
+                  <div *ngIf="role.errors.pattern" class="text-danger">
+                    only char's & max 50
+                  </div>
+                </div>
+              </td>
+              <td *ngIf="profile.isEditProfile" class="td-content">
+                <input type="text" class="form-control edit-input" name="email" #email="ngModel" disabled
+                  [(ngModel)]="profileArr[i].email" pattern="[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+)+((\.)[a-z]{2,4})"
+                  required>
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                  <div *ngIf="email.errors.required">
+                    Email is required.
+                  </div>
+                  <div *ngIf="email.errors.pattern" class="text-danger">
+                    Please Enter Valid Email
+                  </div>
+                </div>
+              </td>
+              <td *ngIf="profile.isEditProfile">
+                <div class="td-content">
+                  <span class="border-right">Photos<span class="badge">{{profile.imageCount}}</span></span>
+                  <span>Videos<span class="badge yello-bckgnd">{{profile.videoCount}}</span></span>
+                </div>
+              </td>
+              <td *ngIf="profile.isEditProfile">
+                <label class="td-content mr-1"><i class="fa fa-circle"
+                    [ngClass]="profile.status==='ACTIVE'?'green-dot':'orange-dot'"></i>{{profileArr[i].status | titlecase}}</label>
+              </td>
+              <td *ngIf="profile.isEditProfile">
+                <button type="button" class="btn add-influencer-hollobtn mr-2" [disabled]="fnamevalid"
+                  (click)="saveEditedProfile(profile.userId,i)">Save</button>
+              </td>
+            </tr>
+          </tbody>
+          <h3 *ngIf="profileData.length==0" class="text-center pt-3">No Data Found</h3>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

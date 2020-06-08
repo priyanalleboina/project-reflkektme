@@ -1,0 +1,28 @@
+.copy-right-box {
+  background-color: #2e4052;
+  margin-top: 1.375rem;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: 60px;
+  z-index: 9;
+}
+
+.influencer-dashboard .sidenav {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 10rem;
+  background-color: #2e3f52;
+  overflow: auto;
+  transition: all .3s linear 0;
+}
+
+.wrapper {
+  background-color: #f2efee;
+  position: relative;
+}
+
+.border-b {
+  border-bottom: 1px solid #c4c2c2;
+}

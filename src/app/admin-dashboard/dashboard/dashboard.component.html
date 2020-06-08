@@ -1,0 +1,243 @@
+<div class="row">
+  <div class="col-12 d-flex">
+    <div class="col-2">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div class="col-10 mt-70 align-width-screen">
+      <div class="col-12 mt-3 mb-2 font17 heading-color">Dashboard</div>
+      <div class="row no-gutters">
+        <div class="col-9  full-width-tabs">
+          <ul class="nav nav-tabs" role="tablist">
+            <!-- <li class="nav-item all-space"
+              [ngClass]="activeTab == tabEnum.MostPopularSize? 'white-bckgnd': 'lgray-bckgnd'">
+              <a class="nav-link font17 darkgray" data-toggle="tab" (click)="activeTab = tabEnum.MostPopularSize">Most
+                Popular
+                Size</a>
+            </li> -->
+            <li class="nav-item all-space" [ngClass]="activeTab == tabEnum.Report? 'white-bckgnd': 'lgray-bckgnd'">
+              <a class="nav-link font17 darkgray" data-toggle="tab"
+                (click)="activeTab = tabEnum.Report;selectedReportType = ''">Report
+              </a>
+            </li>
+            <li class="nav-item all-space" [ngClass]="activeTab == tabEnum.UserReviews? 'white-bckgnd': 'lgray-bckgnd'">
+              <a class="nav-link font17 darkgray" data-toggle="tab"
+                (click)="activeTab = tabEnum.UserReviews;selectedReportType = ''">User
+                Reviews</a>
+            </li>
+          </ul>
+          <div *ngIf="activeTab == tabEnum.MostPopularSize" class="white-bckgnd">
+            <div class="d-flex popular-size-btns">
+              <div class="dropdown dash-dropdown">
+                <button type="button" class="btn upload-btn yello-bckgnd dropdown-toggle"
+                  data-toggle="dropdown">S</button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item">Link 1</a>
+                  <a class="dropdown-item">Link 2</a>
+                  <a class="dropdown-item">Link 3</a>
+                </div>
+              </div>
+              <div class="dropdown ml07">
+                <button type="button" class="btn upload-btn yello-bckgnd dropdown-toggle"
+                  data-toggle="dropdown">Monthly</button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item">Link 1</a>
+                  <a class="dropdown-item">Link 2</a>
+                  <a class="dropdown-item">Link 3</a>
+                </div>
+              </div>
+              <button type="button" class="btn upload-btn yello-bckgnd ml07">Export to CSV</button>
+            </div>
+            <div [chart]="barChart" style="width:100%"></div>
+          </div>
+          <div *ngIf="activeTab == tabEnum.Report" class="white-bckgnd tabs-height">
+            <div class="report-tab">
+              <label class="font_report">Search by Date</label>
+              <div class="d-flex">
+                <form #rForm="ngForm" class="d-flex" (ngSubmit)="rForm.valid && exportAsExcelFile()">
+                  <select class="form-control report-dropdown font_report" [(ngModel)]="selectedReportType" required
+                    name="typeDropdown" #report="ngModel">
+                    <option value="undefined" disabled>Select</option>
+                    <option value="{{'TODAY'}}">Today</option>
+                    <option value="{{'YESTERDAY'}}">Yesterday</option>
+                    <option value="{{'THIS_MONTH'}}">This Month</option>
+                    <option value="{{'LAST_MONTH'}}">last Month</option>
+                  </select>
+                  <button type="submit" class="btn upload-btn yello-bckgnd ml-2" style="height: 1.8rem">Download
+                    Report</button>
+                </form>
+              </div>
+              <div class="text-danger" *ngIf="rForm?.submitted && report?.errors?.required">Select Type to download
+              </div>
+            </div>
+          </div>
+          <div *ngIf="activeTab == tabEnum.AvgheightWeight" class="white-bckgnd">
+            <!-- <div class="row">
+              <div class="col-6 border-rt">
+                <ngx-gauge [type]="weightGauge.type" [thick]="weightGauge.thickness" [value]="weightGauge.value"
+                  [label]="weightGauge.label" [append]="weightGauge.appendText" [cap]="weightGauge.cap"
+                  [size]="weightGauge.size" [foregroundColor]="weightGauge.foreColor"
+                  [backgroundColor]="weightGauge.backColor">
+                </ngx-gauge>
+              </div>
+              <div class="col-6">
+                <ngx-gauge [type]="heightGauge.type" [thick]="heightGauge.thickness" [value]="heightGauge.value"
+                  [label]="heightGauge.label" [append]="heightGauge.appendText" [cap]="heightGauge.cap"
+                  [size]="heightGauge.size" [foregroundColor]="heightGauge.foreColor"
+                  [backgroundColor]="heightGauge.backColor">
+                </ngx-gauge>
+              </div>
+            </div> -->
+          </div>
+          <div *ngIf="activeTab == tabEnum.UserReviews" class="white-bckgnd tabs-height">
+            <div style="padding:1rem">
+              <table class="table table-borderless" *ngIf="allReviews.length > 0">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th style="width:30%;">Comment</th>
+                    <th class="text-capitalize">Product Name</th>
+                    <th>Photos & Videos</th>
+                    <th>Date</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="nav-border" *ngFor="let review of allReviews; let i= index">
+                    <td class="text-center">
+                      <img class="round-img" [src]="review?.user?.media?.media_url || '../../../assets/round.svg'">
+                      <div class="font-s10 darkgray">{{review.user.firstName}}</div>
+                    </td>
+                    <td>
+                      <div style="line-height: 0.6rem">
+                        <star-rating value="{{review.reviewStar}}" checkedcolor="#f5c254" uncheckedcolor="#979797"
+                          size="18px" readonly="true" (rate)="onRate($event)"></star-rating>
+                      </div>
+                      <div>{{review?.reviewTitle}}</div>
+                      <div id="reiv">
+                        <p class="collapse mb-0 font-s10 darkgray" *ngIf="review?.reviewDesc.length <= 100">
+                          {{review?.reviewDesc }}</p>
+                        <read-more *ngIf="review?.reviewDesc.length > 100" [text]="review?.reviewDesc"
+                          [maxLength]="100">
+                        </read-more>
+                      </div>
+                    </td>
+                    <td class="font-s10 text-capitalize">
+                      {{review?.product?.product_name}}
+                    </td>
+                    <td class="font-s10">
+                      <div>{{review?.imageCount}} Photos</div>
+                      <div>{{review?.videoCount}} Videos</div>
+                    </td>
+                    <td class="font-s10 darkgray">
+                      {{review.reviewCreatedDate | date:'dd MMM yyyy'}}
+                    </td>
+                    <td class="d-flex">
+                      <button type="button" class="btn approve-reject-btn yello-bckgnd"
+                        (click)="approveUserReview(review.reviewId,ReviewStatusEnum.Approved)">Approve</button>
+                      <button type="button" class="btn approve-reject-btn gray-bckgnd ml-1"
+                        (click)="approveUserReview(review.reviewId,ReviewStatusEnum.Rejected)">Reject</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <h6 class="text-center" *ngIf="allReviews?.length==0">No data Found</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-3 pl-10">
+          <div class="tab-pannel-wrapper text-color"
+            style="background-color:#808184; border-radius: 0.4rem; height: 22rem;">
+            <div class="text-center">
+              <img id="hangleImg" src="assets/AdminDashboard/316-01-512-grey.png"></div>
+            <div class="text-center mt-2">Age selected most frequently</div>
+            <div class="tab-pannel">
+              <ul class="d-flex">
+                <li (click)="ageTab=periodEnum.Weekly;" [ngClass]="{'active':ageTab===periodEnum.Weekly}"
+                  class="pointer">
+                  <a class="text-capitalize">{{periodEnum.Weekly}}</a></li>
+                <li (click)="ageTab=periodEnum.Monthly;"
+                  [ngClass]="{'active':ageTab===periodEnum.Monthly}" class="pointer">
+                  <a class="text-capitalize">{{periodEnum.Monthly}}</a></li>
+                <li (click)="ageTab=periodEnum.Yearly;" [ngClass]="{'active':ageTab===periodEnum.Yearly}"
+                  class="pointer">
+                  <a class="text-capitalize">{{periodEnum.Yearly}}</a></li>
+                <li class="pointer" (click)="ageTab=periodEnum.Calendar"
+                  [ngClass]="{'active':ageTab===periodEnum.Calendar}">
+                  <a><i class="fa fa-calendar" aria-hidden="true"></i></a></li>
+              </ul>
+            </div>
+            <div class="inputBox d-flex" *ngIf="ageTab === 'calender'">
+              <form class="form-inline" #calendarForm="ngForm" (ngSubmit)="calendarForm?.form?.valid && getAgeData()">
+                <div class="form-group mt-1">
+                  <div class="input-group" style="margin-top: 8px !important;">
+                    <input readonly class="form-control" style="margin-top: 0;" placeholder="From Date" name="fd"
+                      [(ngModel)]="calendarObj.fromDate" ngbDatepicker #fd="ngbDatepicker" required>
+                    <div class="input-group-append">
+                      <button class="btn  calendar" style="line-height: 1;" (click)="fd.toggle()" type="button"><a><i
+                            class="fa fa-calendar" aria-hidden="true"></i></a></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mt-1" style="margin-top: 8px !important;">
+                  <div class="input-group">
+                    <input readonly class="form-control" style="margin-top: 0;"    placeholder="To Date" name="td"
+                      [(ngModel)]="calendarObj.toDate" ngbDatepicker #td="ngbDatepicker" required>
+                    <div class="input-group-append">
+                      <button class="btn  calendar" style="line-height: 1;" (click)="td.toggle()" type="button"><a><i
+                            class="fa fa-calendar" aria-hidden="true"></i></a></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-danger mt-1 m-auto " *ngIf="calendarForm?.submitted && (calendarForm?.form?.invalid)">
+                  To and From date is required
+                </div>
+                <div class="inputBoxButton m-auto">
+                  <button type="submit" class="btn upload-btn yello-bckgnd mt-1">Submit</button>
+                </div>
+              </form>
+            </div>
+            <div class="row no-gutters mt-3">
+              <div class="col-12 d-flex">
+                <div class="col-4">18-24 </div>
+                <div class="col-6">
+                  <ngb-progressbar type="success" [value]="ageData[ageTab]['18-24']"></ngb-progressbar>
+                </div>
+                <div class="col-2 yello text-right p-0">
+                  {{ageData[ageTab]['18-24'] ? (ageData[ageTab]['18-24'] | number:'1.0-0' ): 0}} %
+                </div>
+              </div>
+              <div class="col-12 d-flex mt-1">
+                <div class="col-4">25-34</div>
+                <div class="col-6">
+                  <ngb-progressbar type="success" [value]="ageData[ageTab]['25-34']"></ngb-progressbar>
+                </div>
+                <div class="col-2 yello text-right p-0">
+                  {{ageData[ageTab]['25-34'] ?( ageData[ageTab]['25-34'] | number:'1.0-0') : 0}} %
+                </div>
+              </div>
+              <div class="col-12 d-flex mt-1">
+                <div class="col-4">35-44</div>
+                <div class="col-6">
+                  <ngb-progressbar type="success" [value]="ageData[ageTab]['35-44']"></ngb-progressbar>
+                </div>
+                <div class="col-2 yello text-right p-0">
+                  {{ageData[ageTab]['35-44'] ? (ageData[ageTab]['35-44'] | number:'1.0-0') : 0}} %
+                </div>
+              </div>
+              <div class="col-12 d-flex mt-1">
+                <div class="col-4">45+</div>
+                <div class="col-6">
+                  <ngb-progressbar type="success" [value]="ageData[ageTab]['45']"></ngb-progressbar>
+                </div>
+                <div class="col-2 yello text-right p-0">
+                  {{ageData[ageTab]['45'] ? (ageData[ageTab]['45'] | number:'1.0-0') : 0}} %</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

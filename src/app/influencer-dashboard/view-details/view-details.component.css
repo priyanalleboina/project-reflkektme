@@ -1,0 +1,69 @@
+.view-details-container p-dialog .card img {
+  height: 18rem;
+}
+
+.view-details-container .row .col-4 .form-group input {
+  /* width: 39%; */
+  /* margin-top: 0.3rem; */
+}
+
+.view-details-container .row .col-4 .form-group {
+  margin-bottom: 0.5rem;
+}
+
+.view-details-container .row .col-4 .form-group label {
+  font-size: 12px;
+  color: #232221;
+  margin-bottom: 0rem;
+}
+
+.view-details-container .row .col-4 .form-group .view-text {
+  font-size: 12px;
+  color: #808184;
+}
+
+
+#short_title {
+  font-size: 16px;
+  color: #6A6968;
+  margin-top: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+/* .chipwidth .ui-chips .ui-inputtext{
+    width: 39%;
+    margin-bottom: -0.5rem;
+} */
+#replaceImg {
+  text-align: right;
+  margin-bottom: 0.8rem;
+}
+
+.edit-btn {
+  color: white !important;
+  border-radius: 3rem !important;
+  padding: 0rem 0.7rem 0rem 0.7rem !important;
+  font-size: 12px !important;
+  background-color: #F5C255;
+}
+
+.ui-chips > ul.ui-inputtext,
+.ui-chips > ul.ui-inputtext:focus {
+  border: none;
+  box-shadow: none;
+  background: none;
+}
+.ui-chips .ui-chips-input-token {
+  display: none;
+}
+.measurements{
+  /* padding: 2px 17px; */
+  font-size:12px;
+  color: #232221 !important;
+}
+.width_hips{
+ width:3.5rem !important;
+}
+.required_assign_tag .ui-chips>ul.ui-inputtext {
+  border-bottom-color: red;
+}

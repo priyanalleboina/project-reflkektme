@@ -1,0 +1,694 @@
+<div class="row">
+  <div class="col-12 d-flex">
+    <div class="col-2">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div class="col-10 mt-70 d-flex align-width-screen">
+      <div class="d-flex justify-content-center loading-indicator " *ngIf="isLoader">
+        <div class="spinner-border"></div>
+      </div>
+      <div class="p-0" [ngClass]="{ 'col-4': !isLibraryHidden, 'col-1': isLibraryHidden}">
+        <div class="Library-card" *ngIf="!isLibraryHidden">
+          <div class="font17">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <span class="heading-color ml-2 font17">Media Library</span>
+              <div class="d-flex align-items-center">
+                <span class="search-form-icon mr-2" id="search" (click)="toggleSearch()">
+                  <i class="fa fa-search search-icon"></i></span>
+                <div class="side-close-box">
+                  <span class="side-close-icon" (click)="isLibraryHidden=true"><img
+                      src="assets/InfluencerDashboard/close.svg"></span>
+                </div>
+              </div>
+            </div>
+            <div class="search-box mt-3 mr-2" *ngIf="isSearch">
+              <form #searchForm="ngForm" (ngSubmit)="searchForm.valid && getAllProducts()">
+                <input class="library-search-form" name="searchProduct" id="exampleInputEmail1" #searchProduct="ngModel"
+                  [(ngModel)]="search" (input)="getAlldata(search)">
+                <button type="submit" class="search-form-icon transparentBg"><i
+                    class="fa fa-search search-icon"><label>Search</label></i></button>
+              </form>
+              <div *ngIf="searchForm.submitted && searchProduct.invalid" class="text-danger ">
+                Search is required
+              </div>
+            </div>
+          </div>
+          <div class="gray-seperator mt-2"></div>
+          <div class="p-2">
+            <div class="d-flex pointer">
+              <label class="heading-color">Filter</label>
+              <i class="fa fa-caret-up ml-auto" *ngIf="isFilterOpen" (click)="isFilterOpen = !isFilterOpen"></i>
+              <i class="fa fa-caret-down ml-auto" *ngIf="!isFilterOpen" (click)="isFilterOpen = !isFilterOpen"></i>
+            </div>
+            <div class="filter-dropdown" *ngIf="isFilterOpen">
+              <div class="form-group">
+                <label>Product Category</label>
+                <ng-multiselect-dropdown [placeholder]="'Product Category'" [data]="allcategoryArr"
+                  [(ngModel)]="selectedProducts" [settings]="dropdownSettings" (onSelect)="onProductSelect($event)"
+                  (onSelectAll)="onSelectAll($event)" (onDeSelect)="onUnSelectAll($event) ">
+                </ng-multiselect-dropdown>
+              </div>
+              <div class="form-group">
+                <label>Size</label>
+                <div>
+                  <select class="form-control" name="size" [(ngModel)]="filtercategory.size">
+                    <option value="" selected disabled>Select size</option>
+                    <option *ngFor="let size of wearingSizeOfFilter" [value]="size">{{size}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Status</label>
+                <div>
+                  <select class="form-control" name="status" [(ngModel)]="filtercategory.mediaStatus">
+                    <option value="" selected disabled>Select status</option>
+                    <option *ngFor="let status of statusList" [value]="status">{{status}}</option>
+                  </select>
+                </div>
+              </div>
+              <div style="text-align:center">
+                <button [disabled]="filtercategory.categorName===''" type="button"
+                  class="btn upload-btn gray-bckgnd mr-2" (click)="search='';resetFilter();">Reset</button>
+                <button type="button" class="btn upload-btn yello-bckgnd" [disabled]="filtercategory.categorName===''"
+                  (click)="getAllProducts();">Apply
+                  Filters</button>
+              </div>
+            </div>
+            <div class="left-library-containt no-gutters">
+              <div *ngIf="influencerMedia &&  influencerMedia.length">
+                <div class="card-text">Recently Added</div>
+                <div class="w-100 row justify-content-between">
+                  <div class="mt-2 col-6" *ngFor="let media of influencerMedia;let ind = index;">
+                    <div class="card" style="width:8.35rem">
+                      <img *ngIf="media.media_type==='IMAGES'" class="card-img-top"
+                        [src]="media?.media_url || '../../assets/image.png'" alt="Card image" style="height:5.5rem">
+                      <video style="height: 5.5rem" *ngIf="media.media_type==='VIDEO'" controls>
+                        <source [src]="media?.media_url || '../../assets/image.png'" type="video/mp4">
+                      </video>
+                      <div class="card-body p-1">
+                        <div class="card-text m-1">
+                          <div class="d-inline">
+                            <span *ngIf="media.uploadeDays > 0">
+                              {{media.uploadeDays}} Days ago
+                            </span>
+                            <br>
+                            <span>
+                              Status : {{media.status}}
+                            </span>
+                          </div>
+                          <span class="dropdown pointer">
+                            <img class="setting-image-small dropdown-toggle"
+                              src="assets/InfluencerDashboard/settings.svg" aria-expanded="false"
+                              data-toggle="dropdown">
+                            <ul class="dropdown-menu setting_alignment" role="menu">
+                              <li (click)="viewImage(ind)"><a class="dropdown-item">View</a></li>
+                              <li (click)="editImage(ind)"><a class="dropdown-item">Edit</a></li>
+                              <li data-toggle="modal" data-target="#deleteModal" (click)="currentMedia = media"><a
+                                  class="dropdown-item">Delete</a>
+                              </li>
+                            </ul>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <view-details-product [media]="media" *ngIf="media?.isViewimage" [_display]="media.isViewimage"
+                      [doAction]="media.action" (isClose)="closePopup($event)">
+                    </view-details-product>
+                  </div>
+                </div>
+                <div class="align-middle mt-3" *ngIf="influencerMedia.length">
+                  <button type="button" class="preview-btn btn px-4 py-1" [disabled]="selectedPageNumber == 0"
+                    (click)="getNextProducts('prev')"
+                    [ngStyle]="{'cursor':selectedPageNumber == 0 ? 'not-allowed' : 'pointer'}"><a><i
+                        class="fa fa-caret-left" aria-hidden="true"></i></a></button>
+                  <span class="text-align-middle"> {{(selectedPageNumber * 6 + 1)}} -
+                    {{((selectedPageNumber * 6) + influencerMedia.length)}}
+                    of {{totalElement}}</span>
+                  <button type="button" class="next-btn btn px-4 py-1"
+                    [disabled]="(!influencerMedia.length || ((selectedPageNumber * 6) + influencerMedia.length) == totalElement || influencerMedia.length < 6)"
+                    (click)="getNextProducts('next')"
+                    [ngStyle]="{'cursor': (!influencerMedia.length || ((selectedPageNumber * 6) + influencerMedia.length) == totalElement || influencerMedia.length < 6) ? 'not-allowed' :'pointer'}"><a><i
+                        class="fa fa-caret-right" aria-hidden="true"></i></a></button>
+                </div>
+              </div>
+              <div class="text-center" *ngIf="!influencerMedia?.length">
+                Medias are not available
+              </div>
+            </div>
+          </div>
+          <div class="gray-seperator"></div>
+        </div>
+        <div *ngIf="isLibraryHidden" class="hidden-library" (click)="isLibraryHidden=false">
+          <div class="heading-color font17 mt-4 p-2">M L</div>
+          <div class="search-form-icon m-auto" id="search"><i class="fa fa-search search-icon"></i></div>
+          <div class="gray-seperator mt-3"></div>
+          <div class="heading-color mt-2">F</div>
+          <div class="gray-seperator"></div>
+          <div class="mt-2 card-text">R A</div>
+        </div>
+      </div>
+      <div class="" [ngClass]="{ 'col-8': !isLibraryHidden, 'col-10': isLibraryHidden}">
+        <div class="custom-card-outer">
+          <div class="">
+            <div class="col-12 p-0 custom-card">
+
+              <div class="col-3">
+                <span class="font-1 mt-2 font-weight-bold yello">Influencers</span>
+                <div class="upload-file-box box-height mt-2">
+                  <div class="side-nav">
+                    <div class="navbar-collapse" id="navbarNav">
+                      <ul class="navbar-nav">
+                        <li *ngFor="let influencerData of allMediaOfInfluencer; let i=index" class="nav-item  p-0"
+                          [ngClass]="{'bgActiveColor':influencerData.isSelected}">
+                          <a class="nav-link text-center pointer" (click)="selectProfile(influencerData)">
+                            <div class="round-img">
+                              <img class="" [src]="influencerData?.media?.media_url || '../../../assets/round.svg'">
+                              <!-- *ngIf="influencerData.isSelected" -->
+                              <span
+                                class="badge badge-warning yello-bckgnd round-badge">{{influencerData?.influencerMedia?.length}}</span>
+                            </div>
+                            <label class="section-title text-capitalize">{{influencerData.firstName}}
+                              {{influencerData.lastName}}</label>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-9">
+                <div>
+                  <div class="">
+                    <label class="font-2 d-block heading-color">Videos</label>
+                  </div>
+                  <div class="row no-gutters">
+                    <div class="col-4 mt-2" *ngFor="let influencerMedia of influencerVideos; let i=index">
+                      <div class="card mr-right-left pointer" (click)="findProductByMedia(influencerMedia.media_id,i)"
+                        [ngClass]="{'border-yello':influencerMedia?.isPhotoSelected}">
+                        <!-- {{influencerMedia?.isPhotoSelected}} -->
+                        <!-- <img class="card-img-top" [src]="influencerMedia?.media_url" alt="Card image"
+                          style="height:8rem; padding: 0.2rem;"> -->
+                        <video controls style="overflow: hidden;height:100px;">
+                          <source [src]="influencerMedia.media_url" type="video/mp4">
+                        </video>
+                        <div *ngIf="influencerMedia.status !== 'Approved'"
+                          class="card-body p-1 d-flex justify-content-center">
+                          <button type="button" class="btn approve-reject-btn yello-bckgnd"
+                            (click)="changeMediaStatus(influencerMedia.media_id,'APPROVED'); ">Approve</button>
+                          <!-- isApproveMediaByAdmin(influencerMedia) -->
+                          <button type="button" class="btn approve-reject-btn gray-bckgnd ml-2"
+                            (click)="changeMediaStatus(influencerMedia.media_id,'REJECTED')">Reject</button>
+                        </div>
+                        <div *ngIf="influencerMedia.status === 'Approved'" class="card-body p-1 d-flex">
+                          <div>
+                            <button type="button" class="btn approve-reject-btn yello-bckgnd" disabled>
+                              <img style="height: 0.5rem" src="assets/Guest-final-step–5/tick.svg">Approved
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="">
+              <div class="col-12 custom-card">
+                <form class="w-100" #f="ngForm"
+                  (ngSubmit)="f.valid && productDetails?.product_price > 0 && createProduct(f)">
+                  <div class="header-content">
+                    <h6>Enter Product And Model Details</h6>
+                    <p>You can enter the details of the selected files from the uploaded list.</p>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label>Product Name<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" #productName="ngModel" name="productName"
+                          [(ngModel)]="productDetails.product_name" [disabled]="!isMediaSelect"
+                          [ngClass]="{'require': f.submitted && !productName.valid}"
+                          pattern="^[a-zA-Z]+.*?[^\s]{1,100}$" required maxlength="100">
+                        <!-- <div *ngIf="productName.invalid && (productName.dirty || productName.touched)"  class="text-danger">
+                          <div *ngIf="productName.errors.required">
+                            ProductName  is required.
+                          </div>
+                          <div *ngIf="productName.errors.pattern"  class="text-danger">
+                            Please Enter Characters
+                          </div>
+                        </div> -->
+                      </div>
+                      <div class="form-group">
+                        <label>Product URL<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" #productUrl="ngModel"
+                          [ngClass]="{'require': f.submitted && !productUrl.valid }" name="productUrl"
+                          [(ngModel)]="productDetails.product_url" required [disabled]="!isMediaSelect" maxlength="50">
+                        <!-- pattern="(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})" -->
+                        <div *ngIf="f.submitted" class="text-danger">
+                          <!-- <div *ngIf="productUrl.errors.required">
+                            First Name is required.
+                          </div> -->
+                          <div *ngIf="productUrl?.errors?.pattern" class="text-danger">
+                            Please enter proper URL.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group assign-tag-box">
+                        <label>Assign Tag</label><span class="card-text"> Separate tags with commas</span>
+                        <p-chips name="assignTag" [disabled]="!isMediaSelect"
+                          [ngClass]="{'disabled_assign_tag .ui-chips>ul.ui-inputtext':!isMediaSelect}"
+                          [(ngModel)]="productDetails.assign_tag" #assignTag="ngModel"
+                          [styleClass]="(f.submitted && assignTag?.errors?.pattern )?'redborder':''"
+                          pattern="^[a-zA-Z]+.*?[^\s]{1,100}$" max="5">
+                        </p-chips>
+                        <div *ngIf="f.submitted" class="text-danger">
+                          <!-- <div *ngIf="productUrl.errors.required">
+                              First Name is required.
+                            </div> -->
+                          <div *ngIf="assignTag?.errors?.pattern" class="text-danger">
+                            Please enter Characters
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label>Product Category<span class="text-danger">*</span></label>
+                        <!--   -->
+                        <select class="form-control" name="productCategory" [(ngModel)]="productDetails.category_name"
+                          #prodCategory="ngModel" [ngClass]="{'require': f.submitted && !prodCategory.valid}" required
+                          [disabled]="!isMediaSelect" (change)="findCategoryId(productDetails.category_name)">
+                          <option value="" selected hidden disabled></option>
+                          <option *ngFor="let category of allcategoryArr" [value]="category.category_name">
+                            {{category.category_name}}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Product price<span class="text-danger">*</span></label>
+                        <input class="form-control" name="productPrice" [(ngModel)]="productDetails.product_price"
+                          #prodPrice="ngModel"
+                          [options]="{ prefix: '$', thousands: ',', hundred: ',', align: 'left', precision: 2, allowNegative: false }"
+                          [ngClass]="{'require': (f.submitted && !prodPrice.valid) || (f.submitted && productDetails.product_price < 1) }"
+                          currencyMask required maxlength="8" [disabled]="!isMediaSelect">
+                        <!--   -->
+                      </div>
+                      <div class="form-group">
+                        <label>Size Tag <span class="text-danger">*</span></label>
+                        <span><label class="font-s10"> Size Metrics:</label><a> US</a>
+                          <img class="pencil-img" src="assets/Guest-final-step–5/pencil.svg">
+                        </span>
+                        <select class="form-control" name="size" [(ngModel)]="productDetails.size_tag"
+                          (change)="findMeasurementId()" #_size="ngModel"
+                          [ngClass]="{'require': f.submitted && !_size.valid}" required [disabled]="!isMediaSelect">
+                          <option selected value="" hidden disabled></option>
+                          <option *ngFor="let sizes of measurements" [value]="sizes.size">{{sizes.size}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label>Reflekt me tips<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" #tips="ngModel" name="tips"
+                          [(ngModel)]="measurementDetailObj.reflektmeOnTips" [disabled]="!isMediaSelect"
+                          pattern="^[a-zA-Z]+.*?[^\s]{1,200}$" [ngClass]="{'require': f.submitted && !tips.valid}"
+                          required maxlength="200">
+                        <!-- <div *ngIf="tips.invalid && (tips.dirty || tips.touched)"  class="text-danger">
+                          <div *ngIf="tips.errors.required">
+                            Reflekt me tips required.
+                          </div>
+                          <div *ngIf="tips.errors.pattern"  class="text-danger">
+                            Please Enter Characters
+                          </div>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-2 lightgray">Model Measurements <span class="text-danger">*</span></div>
+                  <div class="gray-seperator mb-3"></div>
+                  <div class="Model-Measurements-wrapper d-flex justify-content-between">
+                    <div class="form-group width5">
+                      <label>Size<span class="text-danger">*</span></label>
+                      <select class="form-control" name="wearingSize" #wearing_Size="ngModel"
+                        [(ngModel)]="measurementDetailObj.size"
+                        [ngClass]="{'require': f.submitted && !wearing_Size.valid}" required
+                        [disabled]="!isMediaSelect">
+                        <option selected value="" hidden disabled></option>
+                        <option *ngFor="let sizes of wearingSize" [value]="sizes.size">{{sizes.size}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group width7">
+                      <label>Height<span class="text-danger">*</span></label>
+                      <div class="switch6" style="border:1px solid #999999;">
+                        <label class="switch6-light">
+                          <input type="checkbox" name="isHeightInCm"
+                            (click)="isHeightInFeet?(measurementDetailObj.heightMeasurement='FEET'):(measurementDetailObj.heightMeasurement='CM')"
+                            [(ngModel)]="isHeightInCm" [disabled]="!isMediaSelect">
+                          <span class="pointer">
+                            <span>FEET</span>
+                            <span>CM</span>
+                          </span>
+                          <a class="btn switch-colr"></a>
+                        </label>
+                      </div>
+                      <input *ngIf="isHeightInCm" type="number" placeholder="cm" class="form-control no-spin"
+                        #hight="ngModel" name="height" [(ngModel)]="measurementDetailObj.heightCentemeter"
+                        [ngClass]="{'require': f.submitted && !hight.valid }" required
+                        pattern="^((?<!-)\b([1-3]?\d{1,2}|400)\b|\d)(\.\d{1,2})?$" type="number"
+                        [disabled]="!isMediaSelect">
+                      <div *ngIf="!isHeightInCm" class="d-flex">
+                        <input type="number" placeholder="feet" class="form-control no-spin" #hight="ngModel"
+                          name="height" [(ngModel)]="measurementDetailObj.heightFeet" pattern="([1-9]|1[0-2])"
+                          [ngClass]="{'require': f.submitted && !hight.valid }" [disabled]="!isMediaSelect" required>
+                        <input type="number" placeholder="inch" class="form-control no-spin ml-1" name="inchForHt"
+                          #inchForHt="ngModel" [(ngModel)]="measurementDetailObj.heightInch" pattern="([1-9]|1[0-2])"
+                          [ngClass]="{'require': f.submitted && !inchForHt.valid }"
+                          oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                          type="number" maxlength="2" [disabled]="!isMediaSelect">
+                      </div>
+                    </div>
+                    <div class="form-group width6">
+                      <label>Body Type<span class="text-danger">*</span></label>
+                      <select class="form-control" name="bodyType" #body_type="ngModel"
+                        [(ngModel)]="measurementDetailObj.bodyType"
+                        [ngClass]="{'require': f.submitted && !body_type.valid}" required [disabled]="!isMediaSelect">
+                        <option [value]="bt" *ngFor="let bt of bodyTypes">{{bt}}</option>
+
+                      </select>
+                    </div>
+                    <div class="form-group width7">
+                      <label>Weight<span class="text-danger">*</span></label>
+                      <div class="switch6 " style="border:1px solid #999999;">
+                        <label class="switch6-light" onclick="">
+                          <input type="checkbox" name="isweightInLbs"
+                            (click)="isHeightInFeet?(measurementDetailObj.weightMeasurement='KG'):(measurementDetailObj.weightMeasurement='LBS')"
+                            [(ngModel)]="isweightInLbs" [disabled]="!isMediaSelect">
+                          <span class="pointer">
+                            <span>KG</span>
+                            <span>LBS</span>
+                          </span>
+                          <a class="btn switch-colr"></a>
+                        </label>
+                      </div>
+                      <input *ngIf="isweightInLbs" type="number" id="weight_disable" placeholder="lbs" class="form-control no-spin"
+                        name="weight" [(ngModel)]="measurementDetailObj.weightLbs" #Weight="ngModel"
+                        [ngClass]="{'require': f.submitted && !Weight.valid}" required
+                        pattern="^((?<!-)\b([1-3]?\d{1,2}|400)\b|\d)(\.\d{1,2})?$" type="number" [disabled]="!isMediaSelect">
+                      <input *ngIf="!isweightInLbs" id="weight_disable" type="number" placeholder="kg" class="form-control no-spin"
+                        name="weight" [(ngModel)]="measurementDetailObj.weightKiloGram" #Weight="ngModel"
+                        pattern="^((?<!-)\b([1-3]?\d{1,2}|400)\b|\d)(\.\d{1,2})?$"
+                        [ngClass]="{'require': f.submitted && !Weight.valid}" required type="number" [disabled]="!isMediaSelect">
+                    </div>
+                    <div class="form-group">
+                      <div class="">
+                        <div><label>Hips/Bust/Waist<span class="text-danger">*</span></label></div>
+                        <div class="switch6 margin-left-9" style="border:1px solid #999999;">
+                          <label class="switch6-light">
+                            <input type="checkbox" name="ismeasurementInCm"
+                              (click)="isHeightInFeet?(measurementDetailObj.hipsBustWaistMeasurement='INCH'):(measurementDetailObj.hipsBustWaistMeasurement='CM')"
+                              [(ngModel)]="ismeasurementInCm" [disabled]="!isMediaSelect">
+                            <span class="pointer">
+                              <span>IN</span>
+                              <span>CM</span>
+                            </span>
+                            <a class="btn switch-colr"></a>
+                          </label>
+                        </div>
+                      </div>
+                      <div *ngIf="!ismeasurementInCm" class="d-flex">
+                        <input type="number" class="form-control no-spin p-0 width4" name="hips" placeholder="inch"
+                          [(ngModel)]="measurementDetailObj.hips" #hips="ngModel"
+                          [ngClass]="{'require': f.submitted && !hips.valid}" required
+                          pattern="^(?:100(?:\.00?)?|\d?\d(?:\.\d\d?)?)$" type="number" [disabled]="!isMediaSelect">
+                        <input type="number" class="form-control no-spin p-0 width4" name="bust" placeholder="inch"
+                          [(ngModel)]="measurementDetailObj.bust" #bust="ngModel"
+                          pattern="^(?:100(?:\.00?)?|\d?\d(?:\.\d\d?)?)$"
+                          [ngClass]="{'require': f.submitted && !bust.valid}" required type="number"
+                          [disabled]="!isMediaSelect">
+                        <input type="number" class="form-control no-spin p-0 width4" name="waist" placeholder="inch"
+                          [(ngModel)]="measurementDetailObj.waist" #waist="ngModel"
+                          pattern="^(?:100(?:\.00?)?|\d?\d(?:\.\d\d?)?)$"
+                          [ngClass]="{'require': f.submitted && !waist.valid}" required type="number"
+                          [disabled]="!isMediaSelect">
+                      </div>
+                      <div *ngIf="ismeasurementInCm" class="d-flex">
+                        <input type="number" class="form-control no-spin p-0 width4" name="hips" placeholder="cm"
+                          [(ngModel)]="measurementDetailObj.hips" #hips="ngModel"
+                          pattern="^((0?[1-9]|[1-9][0-9]|[1][0-9][0-9]|200)\b|\d)(\.\d{1,2})?$"
+                          [ngClass]="{'require': f.submitted && !hips.valid}" required type="number"
+                          [disabled]="!isMediaSelect">
+                        <input type="number" class="form-control no-spin p-0 width4" name="bust" placeholder="cm"
+                          [(ngModel)]="measurementDetailObj.bust" #bust="ngModel"
+                          pattern="^((0?[1-9]|[1-9][0-9]|[1][0-9][0-9]|200)\b|\d)(\.\d{1,2})?$"
+                          [ngClass]="{'require': f.submitted && !bust.valid}" required type="number"
+                          [disabled]="!isMediaSelect">
+
+                        <input type="number" class="form-control no-spin p-0 width4" name="waist" placeholder="cm"
+                          [(ngModel)]="measurementDetailObj.waist" #waist="ngModel"
+                          pattern="^((0?[1-9]|[1-9][0-9]|[1][0-9][0-9]|200)\b|\d)(\.\d{1,2})?$"
+                          [ngClass]="{'require': f.submitted && !waist.valid}" required type="number"
+                          [disabled]="!isMediaSelect">
+                      </div>
+                    </div>
+                  </div>
+                  <div style="text-align:left">
+                    <button type="button" class="btn upload-btn gray-bckgnd mr-2" (click)="f.resetForm()">Reset</button>
+                    <button type="submit" class="btn upload-btn yello-bckgnd mr-2">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are You Sure You Want To Delete It ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" style="font-size:0.875rem !important" class="btn yello-btn-setting" data-dismiss="modal"
+            (click)="deleteMedia()">Yes</button>
+          <button type="button" data-dismiss="modal" class="btn holloBtn yello-border">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="row">
+  <div class="col-12 d-flex">
+    <div class="col-2">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div class="col-10 mt-70 align-width-screen">
+      <div class="font17 heading-color mb-2">Photos For Review</div>
+      <div class="d-flex">
+        <div *ngIf="isLibraryHidden===false" class=" Photo-Library">
+          <div class="Library-card ">
+            <div class="d-flex  align-items-center justify-content-between mb-3">
+              <span class="heading-color ml-2 font17">Photo Library</span>
+              <div class="d-flex align-items-center">
+                <span class="search-form-icon mr-2" id="search"
+                  (click)="isSerchHide = !isSerchHide; isClickOnFilter = false;(isSerchHide === true ? (count = 0) : '');(isSerchHide === true ? (totalMediaToDisplay = 8) : '')"><i
+                    class="fa fa-search search-icon"></i></span>
+                <div class="side-close-box">
+                  <span class="side-close-icon" (click)="isLibraryHidden=true"><img
+                      src="assets/InfluencerDashboard/close.svg"></span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="isSerchHide === true" class="search-box mt-3 mr-2">
+              <form>
+                <input class="library-search-form" id="exampleInputEmail1" name="searchBasedOn"
+                  [(ngModel)]="searchBasedOn">
+                <span [ngClass]="searchBasedOn === ''?'disableDiv':''" class="search-form-icon"
+                  (click)="searchMedia()"><i class="fa fa-search search-icon"><label>Search</label></i></span>
+              </form>
+            </div>
+            <div class="gray-seperator mt-2"></div>
+            <div class="p-2" [ngClass]="(isSerchHide === true || influencerMedia.length===0)?'disableDiv':''">
+              <div class="d-flex pointer" (click)="isClickOnFilter = !isClickOnFilter">
+                <label class="heading-color pointer">Filter</label>
+                <i *ngIf="isClickOnFilter === true" class="fa fa-caret-up ml-auto"></i>
+                <i *ngIf="isClickOnFilter === false" class="fa fa-caret-down ml-auto"></i>
+              </div>
+              <div class="filter-dropdown" *ngIf="isClickOnFilter === true">
+                <div class="form-group">
+                  <label>Product Category</label>
+                  <select class="form-control" name="category" [(ngModel)]="filtercategory.categorName"
+                    (change)="getSizeOfCategory()">
+                    <option *ngFor="let category of allcategoryArr" [value]="category.category_name">
+                      {{category.category_name}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Brand</label>
+                  <select class="form-control" disabled>
+                    <option>Lorem Ipsum</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Size</label>
+                  <select [disabled]="filtercategory.categorName===''" class="form-control" name="size"
+                    [(ngModel)]="filtercategory.size">
+                    <option value="" selected disabled hidden></option>
+                    <option *ngFor="let sizes of categorySizeArr" [value]="sizes.size">{{sizes.size}}</option>
+                  </select>
+                </div>
+                <div style="text-align:center">
+                  <button [disabled]="filtercategory.categorName===''" type="button"
+                    class="btn upload-btn gray-bckgnd mr-2" (click)="resetFilter()">Reset</button>
+                  <button [disabled]="filtercategory.categorName===''" type="button" class="btn upload-btn yello-bckgnd"
+                    (click)="getAllProductofAllInfluencersByCriteria(count,totalMediaToDisplay,mediaTypeEnum.Image,influencerId,filtercategory.categorName,filtercategory.size);isApplyFilter=true">Apply
+                    Filters</button>
+                </div>
+              </div>
+            </div>
+            <div class="gray-seperator"></div>
+            <div class="row left-library-containt no-gutters">
+              <div *ngIf="influencerMedia &&  influencerMedia.length">
+                <div class="card-text">Recently Added</div>
+                <div class="w-100 row d-flex justify-content-between">
+                  <div class="mt-2 col-6" *ngFor="let media of influencerMedia">
+                    <div class="card" style="width:8.35rem;margin-right: 9rem;">
+                      <img class="card-img-top" [src]="media.media_url" alt="Card image" style="height:5.5rem;">
+                      <div class="card-body p-1">
+                        <div class="card-text m-1 setting-icon-dropdown">
+                          {{media.uploadeDays}} Days ago
+                          <span class="dropdown">
+                            <img class="setting-image-small dropdown-toggle"
+                              src="assets/InfluencerDashboard/settings.svg" aria-expanded="false"
+                              data-toggle="dropdown">
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a class="dropdown-item" (click)="viewImage(media.media_id)">View</a></li>
+                              <li><a class="dropdown-item" (click)="editImage(media.media_id)">Edit</a></li>
+                              <li><a class="dropdown-item" (click)="deleteMedia(media.media_id)">Delete</a></li>
+                            </ul>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="align-middle mt-3">
+                  <ul class="next-preview-btn d-flex pr-1">
+                    <li class="preview"
+                      (click)="count=(count-1);isSerchHide===false?getAllProductofAllInfluencersByCriteria(count,totalMediaToDisplay,mediaTypeEnum.Image,influencerId,filtercategory.categorName,filtercategory.size):searchMedia()">
+                      <a><i class="fa fa-caret-left" aria-hidden="true"></i></a>
+                    </li>
+                  </ul>
+                  <span class="mt-1"> {{totalMediaToDisplay*count+1}}-{{mediaCount}} of
+                    {{inf_Media_product.total_element}} </span>
+                  <ul class="next-preview-btn d-flex pl-1">
+                    <li class="next"
+                      (click)="count=(count+1);isSerchHide===false?getAllProductofAllInfluencersByCriteria(count,totalMediaToDisplay,mediaTypeEnum.Image,influencerId,filtercategory.categorName,filtercategory.size):searchMedia()">
+                      <a><i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isLibraryHidden===true" class="hidden-library" (click)="isLibraryHidden=false">
+          <div class="heading-color font17 mt-4 p-2">M L</div>
+          <div class="search-form-icon m-auto" id="search"><i class="fa fa-search search-icon"></i></div>
+          <div class="gray-seperator mt-3"></div>
+          <div class="heading-color mt-2">F</div>
+          <div class="gray-seperator"></div>
+          <div class="mt-2 card-text">R A</div>
+        </div>
+        <div class="Photos-Review">
+          <div class="Review-card p-3">
+            <div class="row">
+              <div class="col-2">
+                <div class="font17">Influencers</div>
+              </div>
+              <div class="col-10">
+                <div class="font17">Photos</div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-2 pl-0 pr-0 scrollbar">
+                    <div class="side-nav">
+                      <div class="navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                          <li *ngFor="let influencerData of allMediaOfInfluencer; let i=index" class="nav-item p-0"
+                            [ngClass]="selectedProfile.userId === influencerData.userId ? 'active': 'gray-bckgnd'"
+                            (click)="selectProfile(i)">
+                            <a class="nav-link text-center">
+                              <div class="round-img">
+                                <img *ngIf="influencerData.media && influencerData.media.media_url" class=""
+                                  [src]="influencerData.media.media_url">
+                                <span *ngIf="selectedProfile.userId == influencerData.userId"
+                                  class="badge badge-warning yello-bckgnd">{{totalMedia}}</span>
+                              </div>
+                              <label class="section-title">{{influencerData.firstName}}</label>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-10 scrollbar">
+                    <div *ngIf="selectedProfile" class="row no-gutters">
+                      <div class="col-4 mt-2" *ngFor="let influencerMedia of InfluencerPhotos; let i=index">
+                        <div *ngIf="influencerMedia.media_type===mediaTypeEnum.Image" class="card mr-right-left"
+                          (click)="selectImage(influencerMedia.media_id)"
+                          [ngClass]="influencerMedia.isSelectImg===true?'border-yello':''">
+                          <img class="card-img-top" [src]="influencerMedia.media_url" alt="Card image"
+                            style="height:8rem; padding: 0.2rem;">
+                          <div *ngIf="!influencerMedia.isApproved" class="card-body p-1 d-flex justify-content-center">
+                            <button type="button" class="btn approve-reject-btn yello-bckgnd"
+                              (click)="changeMediaStatus(influencerMedia.media_id,'APPROVED'); isApproveMediaByAdmin(influencerMedia)">Approve</button>
+                            <button type="button" class="btn approve-reject-btn gray-bckgnd ml-2"
+                              (click)="changeMediaStatus(influencerMedia.media_id,'REJECTED')">Reject</button>
+                          </div>
+                          <div *ngIf="influencerMedia.isApproved" class="card-body p-1 d-flex">
+                            <div>
+                              <button type="button" class="btn approve-reject-btn yello-bckgnd">
+                                <img style="height: 0.5rem" src="assets/Guest-final-step–5/tick.svg">Approved
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card p-4">
+            <div class="font17">Enter Product and Model Details</div>
+            <app-details #detailForm [isFormEnable]="isImageSelect" [isSave]="saveCheck" [reset]="isReset"
+              [reset_Id]="resetId"></app-details>
+            <div class="row">
+              <div class="col-12 mb-1">
+                <button [disabled]="!isImageSelect" type="button" class="btn solid-btn gray-bckgnd mr-2"
+                  (click)="isReset=true;resetId=(resetId+1)">Reset</button>
+                <button [disabled]="!isImageSelect" type="button" class="btn solid-btn yello-bckgnd mr-2"
+                  (click)="saveProduct()">Save</button>
+                <button [disabled]="!isImageSelect" type="button" class="btn holloBtn">Upload Photo To Library</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,169 @@
+<div class="gust-pop-box">
+  <div class="modal fade" id="guestModal" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Modal body -->
+        <div class="header">
+          <button type="button" class="close mr-1"
+            (click)="selectSizeForm?.resetForm();preferencesForm?.resetForm();resetGuestForm()">&times;</button>
+          <img class="image" src="../../assets/Guest-final-step–5/White Banner Logo.png">
+        </div>
+        <div class="row pl-pr-2">
+          <div class="col-md-11 m-auto content">
+
+            <p-steps [model]="guestStepper" class="guest-stepper" [readonly]="false"></p-steps>
+            <hr class="hrline">
+            <ul id="progressbar" style="width: 100%;padding: 3px 10px 0px;margin-bottom: 0px;margin-left: 49px">
+              <li class="step0enter" (click)="switchTabs('0')" style="float: left;padding: 5px 10px;"
+                [ngClass]="isSuccesTab0?'step0Success':''"></li>
+              <li (click)="isSuccesTab0 ? switchTabs('1'):''" style="float: left;padding: 5px 10px 0px 82px;"
+                [ngClass]="{'step0Success' : isSuccesTab1, 'step1' : step1tabactive,  'step1enter' : ageInfo}">
+              </li>
+            </ul>
+            <form #selectSizeForm="ngForm"
+              (ngSubmit)="selectSizeForm.valid && this.guestData.size && gotoNext(selectSizeForm,1)">
+              <div class="col-md-11 m-auto" *ngIf="activeIndex == 0">
+                <div class="row">
+                  <div class="col-12 text-center font-14 mb-1 star-required"><b>Size Info</b></div>
+                  <div class="col-12 text-center mb-4">Please select the size you wear often</div>
+                  <div class="col-12 text-center mb-2">Size Metrics<span style="color:#47cdfa">US
+                      <i class="fa fa-pencil" aria-hidden="true"></i></span></div>
+                  <div class="w-100">
+                    <ul class="box pl-0 text-center mb-2">
+                      <li *ngFor="let sizes of measurements.slice(0,4)" (click)="guestData.size = sizes" class="pointer"
+                        [ngClass]="{'yello-bckgnd white':guestData.size===sizes}">
+                        {{sizes}}</li>
+                    </ul>
+                    <ul class="box pl-0 text-center">
+                      <li *ngFor="let sizes of measurements.slice(4,measurements.length)" class="pointer"
+                        (click)="guestData.size = sizes" [ngClass]="{'yello-bckgnd white':guestData.size===sizes}">
+                        {{sizes}}</li>
+                    </ul>
+                    <div *ngIf="selectSizeForm.submitted && !this.guestData.size" class="text-center text-danger">
+                      Please select size
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center pt-1">
+                  <button class="btn p-0" type="submit">
+                    <i class="fa fa-arrow-circle-right " aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <form #preferencesForm="ngForm" (ngSubmit)="preferencesForm.valid && goToFourthStepOfstepper();">
+              <div class="col-md-11 m-auto" *ngIf="activeIndex == 1">
+                <div class="row mt-2">
+                  <div class="col-12 text-center font-1 mb-2 star-required">How Old are you ?
+                    </div>
+                  <ul class="old-list pl-0">
+                    <li class=" radio-border">
+                      <label>
+                        <input type="radio" name="age" value="18-24" [(ngModel)]="guestData.age" required
+                          #ageControl="ngModel">
+                        18-24
+                      </label>
+                    </li>
+                    <li class="radio-border">
+                      <label><input type="radio" name="age" value="25-34" [(ngModel)]="guestData.age" required>
+                        25-34</label>
+                    </li>
+                    <li class="radio-border">
+                      <label><input type="radio" name="age" value="35-44" [(ngModel)]="guestData.age" required>
+                        35-44</label>
+                    </li>
+                    <li class="radio-border"><label>
+                        <input type="radio" name="age" value="45+" [(ngModel)]="guestData.age" required>
+                        45+</label>
+                    </li>
+                  </ul>
+
+                </div>
+                <div class="col-12 text-danger mt-1 text-center"
+                  *ngIf="preferencesForm?.submitted && ageControl?.invalid">Age is
+                  required.</div>
+                <div class="col-12 text-center tborder mt-3 font-1 mb-2 pt-3 star-required">What is your Height &
+                  Weight</div>
+                <div class="col-12 d-flex">
+                  <div class="col-6 p-0 pr-3">
+                    <div class="row mt-2 mb-3">
+                      <div class="col-3">Height</div>
+                      <div class="col-9 pr-0">
+                        <div class="switch6 ml-2" style="border:1px solid #999999;">
+                          <label class="switch6-light">
+                            <input type="checkbox"
+                              (click)="isHeightinFeet?(guestData.heightMeasurement='FEET'):(guestData.heightMeasurement='CM')"
+                              name="heightinFeet" [(ngModel)]="isHeightinFeet">
+                            <span>
+                              <span>FEET</span>
+                              <span>CM</span>
+                            </span>
+                            <a class="btn switch-colr"></a>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="!isHeightinFeet" class="d-flex mt-2">
+                      <input class="form-control width-3 p-1" type="number" placeholder="feet" name="feet"
+                        [(ngModel)]="guestData.feet" #height_feet="ngModel"
+                        [ngClass]="{'require': !height_feet.valid && preferencesForm.submitted}" maxlength="2"
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        pattern="([1-9]|1[0-2])" required>
+                      <input class="form-control width-3 p-1 ml-2" type="number" name="inch" maxlength="2"
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        [ngClass]="{'require': !height_feet.valid && preferencesForm.submitted}" #height_inch="ngModel"
+                        [ngClass]="{'require': !height_inch.valid && preferencesForm.submitted}"
+                        pattern="([1-9]|1[0-2])" [(ngModel)]="guestData.inch" placeholder="inch">
+                    </div>
+                    <div *ngIf="isHeightinFeet" class="mt-2">
+                      <input class="form-control width-3 p-1" type="number" placeholder="cm"
+                        #height_cm="ngModel" name="centemeter" [(ngModel)]="guestData.centemeter"
+                        pattern="^((?<!-)\b([1-3]?\d{1,2}|400)\b|\d)(\.\d{1,2})?$"
+                        [ngClass]="{'require': !height_cm.valid && preferencesForm.submitted}" required>
+                    </div>
+                  </div>
+                  <div class="col-6 p-0 pl-3">
+                    <div class="row mt-2 mb-3">
+                      <div class="col-3">Weight</div>
+                      <div class="col-9 pr-0">
+                        <div class="switch6 ml-3" style="border:1px solid #999999;">
+                          <label class="switch6-light" onclick="">
+                            <input type="checkbox" name="weightinKg" [(ngModel)]="isWeightinKg"
+                              (click)="isWeightinKg?(guestData.weightMeasurement='KG'):(guestData.weightMeasurement='LBS')">
+                            <span>
+                              <span>KG</span>
+                              <span>LBS</span>
+                            </span>
+                            <a class="btn switch-colr"></a>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="!isWeightinKg" class="mt-2">
+                      <input class="form-control width-3 p-1" type="number" placeholder="kg"
+                        pattern="^((?<!-)\b([1-3]?\d{1,2}|400)\b|\d)(\.\d{1,2})?$" #weight_kg="ngModel" name="weight_kg"
+                        [(ngModel)]="guestData.kiloGram"
+                        [ngClass]="{'require': !weight_kg.valid && preferencesForm.submitted}" required>
+                    </div>
+                    <div *ngIf="isWeightinKg" class="mt-2">
+                      <input class="form-control width-3 p-1" type="number" placeholder="lbs"
+                        #weight_lbs="ngModel" name="weight_lbs" [(ngModel)]="guestData.lbs"
+                        pattern="^((?<!-)\b([1-3]?\d{1,2}|400)\b|\d)(\.\d{1,2})?$"
+                        [ngClass]="{'require': !weight_lbs.valid && preferencesForm.submitted}" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center mt-3">
+                  <button class="btn" type="submit">
+                    <i class="fa fa-arrow-circle-right " aria-hidden="true"></i>
+                  </button>
+                  <button style="visibility: hidden" #closebutton data-dismiss="modal" type="button"></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

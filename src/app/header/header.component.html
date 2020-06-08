@@ -1,0 +1,31 @@
+<div class="navbar header-in d-block text-right gray-seperator">
+  <div class="side-bar-circular text-center" *ngIf="!isInfluencer">
+    <div class="search_box_profiles" *ngIf="searchBar">
+      <input type="text" class="inputsearch_profiles"  (keyup.enter)="getAlldata(searchValue)"  (input)="getAlldataInput(searchValue)" [(ngModel)]="searchValue" placeholder="Search">
+      <span class="fa fa-search icon_search" (click)="profileSearch(searchValue)"></span>
+    </div>
+    <div class="circle cursor-p dropdown" style="overflow: inherit;">
+      <img [src]="data?.media?.media_url|| '../../../../assets/avatar.jpg'"
+        class="img-responsive round-img2 yello-border" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+      <span>Me</span>
+      <i class="fa fa-caret-down"  id="dropdownMenuButton" data-toggle="dropdown" ></i>
+      <div class="dropdown-menu profile-circle" aria-labelledby="dropdownMenuButton">
+        <!-- <a class="dropdown-item">Account</a> -->
+        <a class="dropdown-item" (click)="gotoPage('admin-profile','Admin')">Settings</a>
+        <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+      </div>
+    </div>
+  </div>
+  <div class="side-bar-circular" *ngIf="isInfluencer">
+    <div class="circle cursor-p">
+      <img class="img-responsive" [src]="user?.media?.media_url ? user.media.media_url : '../../../../assets/avatar.jpg'">
+      </div>
+  </div>
+</div>
+
+<!--
+  <div class="side-bar-circular" >
+    <div class="circle cursor-p">
+      <img class="img-responsive" [src]="user?.media?.media_url ? user.media.media_url : '../../../../assets/avatar.jpg'"
+ -->

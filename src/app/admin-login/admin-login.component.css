@@ -1,0 +1,127 @@
+.login-wrapper {
+  width: 100%;
+  height: 64vh;
+  background-color: #F2EFEE !important;
+}
+
+.login-box {
+  width: 25rem;
+  height: 22rem;
+  background-color: #F5C255;
+  border-radius: 0.5rem;
+  padding: 1.3rem;
+  background-image: url("../../assets/login/WhiteRLogo.png") !important;
+  background-size: 16rem;
+  background-repeat: no-repeat;
+  position: relative;
+  background-position-y: -0.15rem;
+  top:4.5rem;
+}
+
+.login-box .b-logo img {
+  height: 1rem;
+}
+
+.form-box {
+  width: 14rem;
+  border-radius: 0.4rem;
+  height: auto;
+  background-color: #FFFFFF;
+  border: 2px solid #F4C257;
+  margin-top: 3.1rem;
+  margin-left: auto;
+}
+
+.form-box img {
+  height: 1rem !important;
+}
+
+.form-box input {
+  height: 1.8rem;
+}
+
+.form-group {
+  padding: 0 0.8rem;
+  position: relative;
+}
+
+.login-box form {
+  z-index: 1;
+}
+
+.lable-title {
+  margin: 1.5rem 0 1.5rem 0.5rem;
+}
+
+.form-box .form-group .form-control {
+  display: block;
+  padding: .375rem 1.8rem .375rem 0.6rem;
+  font-size: 0.75rem !important;
+  font-weight: 600;
+  color: #495057 !important;
+  background-color: #fff;
+  border: 1px solid #f5c254;
+  border-radius: 10rem;
+}
+
+.login-btn {
+  text-align: center;
+  font-size: 1.1rem !important;
+  padding: 0.5rem;
+  color: #FFFFFF;
+  background-color: #f5c254;
+  margin-top: 2rem;
+  border-radius: 0rem 0rem 0.5rem 0.5rem;
+  width: 102%;
+  margin-left: -0.15rem;
+}
+
+.checkbox-box {
+  padding-top: 1.2rem;
+  color: #808184;
+}
+
+.margin-right {
+  margin-right: 1.4rem;
+}
+
+.check {
+  margin-right: 0.3rem;
+}
+
+p {
+  margin: 0;
+}
+
+.form-control-icon {
+  position: absolute;
+  top: 0.375rem;
+  right: 1.5625rem;
+}
+
+#whitePatch {
+  position: absolute;
+  background-color: #FFFFFF;
+  height: 4.5rem;
+  width: 17rem;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+}
+
+.b-logo {
+  float: right;
+}
+
+.form-box #signin {
+  font-weight: 600;
+  color: #808184;
+}
+
+font-size-12 {
+  font-size: 12px !important;
+}
+
+.text-danger {
+  color: red !important;
+}

@@ -1,0 +1,44 @@
+.influencer-box {
+  width: 100%;
+}
+
+.influencer-box .card {
+  padding: 1.3rem;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.influencer-box .round-img2 {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 0.6rem;
+  border: 0.09rem solid #f5c254;
+}
+
+/* .mange-box-min-height{
+    min-height: 32.6rem;
+  } */
+.yello-btn-setting {
+  color: white !important;
+  border-radius: 15rem !important;
+  font-size: 0.8rem !important;
+  padding: 0.1rem 0.6rem 0.1rem 0.6rem !important;
+  margin-right: 0.5rem;
+  background-color: #F5C255;
+  margin-bottom: 0 !important;
+}
+
+.gray-btn-setting {
+  color: #000000 !important;
+  border-radius: 15rem !important;
+  font-size: 0.8rem !important;
+  padding: 0.1rem 0.6rem 0.1rem 0.6rem !important;
+  margin-right: 0.5rem;
+  background-color: #c4c2c2;
+}
+
+.requireInp {
+  color: red;
+}

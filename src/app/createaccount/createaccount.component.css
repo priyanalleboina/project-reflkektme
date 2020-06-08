@@ -1,0 +1,504 @@
+.ActiveTab{
+    background-color: red;
+    color:#fff;
+}
+
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey
+}
+
+#progressbar .active {
+    color: #000000
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 25%;
+    float: left;
+    position: relative
+}
+
+#progressbar .step0enter:before {
+    font-family: FontAwesome;
+    content: "Step 1"
+}
+#progressbar .step0Success:before {
+    font-family: FontAwesome;
+    content: "Succ"
+}
+
+#progressbar .step1enter:before {
+    font-family: FontAwesome;
+    content: "Step 2"
+}
+
+#progressbar .step1Success:before {
+    font-family: FontAwesome;
+    content: "Scucc"
+}
+
+
+#progressbar .step2enter:before {
+    font-family: FontAwesome;
+    content: "Step 3"
+}
+#progressbar .step2Success:before {
+    font-family: FontAwesome;
+    content: "Succ"
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "4"
+}
+
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #f5c255
+}
+
+.hrline{
+    position:relative;
+    top: 46px;
+    border-top: 2px solid #f5c255;
+    width: 198px;
+    /* left: -23px; */
+}
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey
+}
+
+#progressbar .active {
+    color: #000000
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 25%;
+    float: left;
+    position: relative
+}
+
+#progressbar .step0enter:before {
+    font-family: FontAwesome;
+    content: "Baisc Info";
+    width: 89px;
+    height: 35px;
+    line-height: 30px;
+    border-radius: 47px;
+    /* padding: 0px 6px 41px 6px; */
+    left: 62px;
+    /* margin-top: 5px; */
+    background: #f5c255;
+    margin-left: -17px;
+    margin-right: 38px;
+    font-size: 15px;
+}
+#progressbar .step0Success:before {
+     font-family: FontAwesome;
+    content: "✔";
+    width: 35px;
+    height: 35px;
+    line-height: 25px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: rgb(189,217,191);
+    border-radius: 50%;
+    padding: 4px;
+    margin: 0em;
+    font-size: 20px;
+    border: 2px solid #f5c255;
+}
+
+#progressbar .step1enter:before {
+    font-family: FontAwesome;
+    content: "2";
+    padding: 4px 5px;
+    font-size: 16px;
+    border: 2px solid #f5c255;
+
+
+}
+
+
+#progressbar .step2enter:before {
+    font-family: FontAwesome;
+    content: "3";
+    padding: 4px 5px;
+    font-size: 16px;
+    border: 2px solid #f5c255;
+}
+#progressbar .step1:before {
+    font-family: FontAwesome;
+    content: "Age & BMI";
+    width: 89px;
+    height: 35px;
+    line-height: 21px;
+    border-radius: 47px;
+    /* padding: 0px 2px 13px 2px; */
+    left: 62px;
+    margin-left: -19px;
+    margin-top: 5px;
+    background: #f5c255;
+    margin-left: -17px;
+    margin-right: 38px;
+    font-size: 15px;
+}
+#progressbar .step2:before {
+    font-family: FontAwesome;
+    content: "Preferences";
+    width: 89px;
+    height: 38px;
+    border-radius: 47px;
+    padding: 0px 6px 41px 6px;
+    left: 62px;
+    margin-left: 9px;
+    margin-top: 5px;
+    background: #f5c255;
+    font-size: 15px;
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "4"
+}
+
+#progressbar li:before {
+  width: 35px;
+  height: 35px;
+  line-height: 25px;
+  display: block;
+  font-size: 18px;
+  color: #ffffff;
+  background: lightgray;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  padding: 2px;
+  text-align: center;
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #f5c255
+}
+.header {
+    background-image: url("../../assets/Guest-final-step–5/2-white.png") !important;
+    height: 5.3125rem !important;
+    background-color: #F5C255 !important;
+    background-size: 16rem;
+    background-repeat: no-repeat;
+  }
+  .content {
+    padding: 0rem 0.4rem;
+    position: relative;
+    top: -32px;
+    background: #fff;
+    border-radius: 8px;
+  }
+  .header .image {
+    height: 1.6rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4%;
+  }
+  .reflektme-btn {
+    height: 1.7rem;
+    margin-top: 0.8rem;
+    cursor: pointer;
+  }
+  
+  .fa-arrow-circle-right {
+    color: #2f4052;
+    font-size: 2.5rem;
+  }
+  
+  .arrow-btn {
+    margin-left: 41%;
+  }
+  .radio-border label input {
+    position: relative;
+    top: 2px;
+}
+.preference-tag {
+    font-size: 14px;
+    font-weight: 800;
+    color: #343434;
+  }
+  
+  .old-list {
+    list-style: none;
+    margin: auto;
+  }
+  
+  .radio-border {
+    display: inline-block;
+    border-radius: 10rem;
+    padding: 2px 7px;
+    border: 0.0625rem solid #BBBBBB;
+    margin-left: 5px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #343434;
+  }
+  
+  .radio-border label {
+    margin-bottom: 0;
+  }
+  
+  .radio-border label input {
+    position: relative;
+    top: 2px;
+  }
+  
+  .width-3 {
+    width: 3rem;
+  }
+  
+  .border-r {
+    border-right: 0.1rem solid #878686;
+    margin: 0.1rem;
+    height: 1rem;
+  }
+  .border-orange {
+    border: 0.1rem solid #F5C255;
+  }
+  
+  .onoffswitch {
+    position: relative;
+    width: 90px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+  
+  .onoffswitch-checkbox {
+    display: none;
+  }
+  
+  .onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #999999;
+    border-radius: 20px;
+  }
+  
+  .onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s;
+    -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s;
+    transition: margin 0.3s ease-in 0s;
+  }
+  
+  .onoffswitch-inner:before,
+  .onoffswitch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  .onoffswitch-inner:before {
+    content: "YES";
+    padding-left: 10px;
+    background-color: #2FCCFF;
+    color: #FFFFFF;
+  }
+  
+  .onoffswitch-inner:after {
+    content: "NO";
+    padding-right: 10px;
+    background-color: #EEEEEE;
+    color: #999999;
+    text-align: right;
+  }
+  
+  .onoffswitch-switch {
+    display: block;
+    width: 18px;
+    margin: 6px;
+    background: #FFFFFF;
+    border: 2px solid #999999;
+    border-radius: 20px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 56px;
+    -moz-transition: all 0.3s ease-in 0s;
+    -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s;
+    transition: all 0.3s ease-in 0s;
+  }
+  
+  .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+  }
+  
+  .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+  }
+  
+  .switch6 {
+    max-width: 6em;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-left: 0.5rem;
+    border: 1px solid #B7B7B7;
+  }
+  
+  .switch6-light>span,
+  .switch-toggle>span {
+    color: #000000;
+  }
+  
+  .switch6-light span span,
+  .switch6-light label,
+  .switch-toggle span span,
+  .switch-toggle label {
+    color: #2b2b2b;
+  }
+  
+  .switch-toggle a,
+  .switch6-light span span {
+    display: none;
+  }
+  
+  .switch6-light {
+    display: block;
+    height: 20px;
+    margin-bottom: 0px;
+    position: relative;
+    overflow: visible;
+    padding: 0px;
+    margin-left: 0px;
+  }
+  
+  .switch6-light * {
+    box-sizing: border-box;
+  }
+  
+  .switch6-light a {
+    display: block;
+    transition: all 0.3s ease-out 0s;
+  }
+  
+  .switch6-light label,
+  .switch6-light>span {
+    line-height: 30px;
+    vertical-align: middle;
+  }
+  
+  .switch6-light label {
+    font-weight: 700;
+    margin-bottom: px;
+    max-width: 100%;
+  }
+  
+  .switch6-light input {
+    position: absolute;
+    opacity: 0;
+    z-index: 5;
+  }
+  
+  .switch6-light input:checked~a {
+    right: 0%;
+  }
+  
+  .switch6-light>span {
+    position: absolute;
+    left: -104px;
+    width: 100%;
+    margin: 0px;
+    padding-right: 5.5rem;
+    text-align: left;
+  }
+  
+  .switch6-light>span span {
+    position: absolute;
+    top: -4px;
+    left: 4px;
+    z-index: 5;
+    display: block;
+    width: 39%;
+    margin-left: 100px;
+    text-align: center;
+    font-size: 10px;
+  }
+  
+  .switch6-light>span span:last-child {
+    left: 43%;
+  }
+  
+  .switch6-light a {
+    position: absolute;
+    right: 50%;
+    border-radius: 20px;
+    top: 0px;
+    z-index: 4;
+    display: block;
+    width: 50%;
+    height: 100%;
+    padding: 0px;
+  }
+  
+  .switch-colr {
+    color: #f4c257;
+    background-color: #f4c257;
+  }
+  
